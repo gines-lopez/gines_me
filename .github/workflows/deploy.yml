@@ -1,0 +1,35 @@
+name: Compilar y publicar
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Apartar la compilación
+        run: mv dist /tmp/site
+
+      - name: Publicar en la rama production
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git fetch origin production && git checkout production || git checkout --orphan production
+          git rm -rf --ignore-unmatch . > /dev/null
+          cp -a /tmp/site/. .
+          git add -A
+          git commit -m "Build ${GITHUB_SHA}" || echo "Sin cambios"
+          git push origin production
