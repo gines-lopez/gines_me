@@ -1,49 +1,196 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Ginés López García — Profesor de FP, experto en oposiciones e IA';
+const description =
+	'Ginés López García: profesor funcionario de Formación Profesional en Informática (DAM) para la Generalitat Valenciana, opositor aprobado y desarrollador web con más de 10 años de experiencia que enseña IA aplicada al desarrollo.';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title={title} description={description} footerVariant="full">
+	<script slot="head" type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ginés López García",
+  "url": "https://gines.me/",
+  "email": "mailto:docentegineslopez@gmail.com",
+  "jobTitle": "Profesor de Formación Profesional en Informática",
+  "description": "Profesor funcionario de Formación Profesional en Informática (DAM), opositor aprobado y desarrollador web con más de 10 años de experiencia, experto en IA aplicada al desarrollo.",
+  "worksFor": {
+    "@type": "GovernmentOrganization",
+    "name": "Generalitat Valenciana - Consellería de Educación"
+  },
+  "sameAs": ["https://www.linkedin.com/in/gineslopez/"],
+  "knowsLanguage": ["es", "en", "fr", "ca"],
+  "knowsAbout": [
+    "Formación Profesional",
+    "Oposiciones docentes",
+    "Inteligencia Artificial aplicada al desarrollo",
+    "Desarrollo de Aplicaciones Multiplataforma",
+    "Desarrollo de Aplicaciones Web",
+    "Sistemas Microinformáticos y Redes",
+    "PrestaShop",
+    "WordPress",
+    "Kotlin",
+    "JavaScript",
+    "PHP"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "ES"
+  }
+}
+	</script>
+
+	<div class="hero-screen">
+		<div class="hero">
+			<div class="wrap">
+				<p class="eyebrow">Formación Profesional · Oposiciones · IA</p>
+				<h1>Profesor de FP. Experto en oposiciones e IA aplicada al desarrollo.</h1>
+				<p class="subhead">
+					Soy Ginés López, profesor de Formación Profesional en Informática y
+					desarrollador web desde 2016. Llevo el código que aprendí en agencias
+					reales a las clases de DAM, DAW y SMR.
+				</p>
+				<p class="hero-note">Funcionario de Carrera en la Generalitat Valenciana desde 2025.</p>
+				<div class="hero-actions">
+					<a class="btn primary" href="mailto:docentegineslopez@gmail.com">Escribir un correo</a>
+					<a class="btn" href="https://gines-lopez.github.io" target="_blank" rel="noopener">Mis apuntes</a>
+					<a class="btn" href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a>
+					<a class="btn" href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<hr class="rule" />
+
+	<main>
+		<section id="historia" class="reveal">
+			<div class="wrap">
+				<h2 class="section-title">¿Quién es Ginés López?</h2>
+				<p>
+					Aquí va la versión corta, sin filtros de LinkedIn.
+				</p>
+				<p>
+					Empecé a programar en 2016, en una agencia de eCommerce especializada
+					en PrestaShop y WordPress. Durante <strong>más de 5 años</strong> escribí
+					el código que sostenía tiendas online reales, con clientes
+					reales y bugs a las tres de la tarde de un viernes.
+				</p>
+				<p>
+					En 2022, nada más terminar el Máster de Profesorado, cambié el
+					teclado del cliente por el de la clase. Desde entonces he formado a
+					alumnos de Sistemas Microinformáticos y Redes (SMR), Desarrollo de
+					Aplicaciones Web (DAW) y Desarrollo de Aplicaciones Multiplataforma
+					(DAM) como <strong>profesor interino de Formación Profesional</strong>.
+				</p>
+				<p>
+					Ser funcionario no llegó a la primera. Me quedé a <strong>13
+					centésimas</strong> de aprobar la oposición — no 13
+					puntos, 13 centésimas. Un suspenso que costó digerir, sobre todo por
+					lo cerca que estuvo.
+				</p>
+				<p>
+					En vez de tirar la toalla, seguí «El Plan» de la mano de A. y J.:
+					sin inventos, sin atajos. Dos años de rutina, estudio, madrugones y
+					más de un día de querer mandarlo todo al garete. En 2025 aprobé <strong>la
+					oposición</strong>, y hoy es lo primero que les cuento a
+					mis alumnos: con trabajo se consiguen las cosas, a veces se tarda
+					más, pero la recompensa llega. Y ayuda mucho saber con quién te
+					rodeas — a mí me tocó el premio gordo.
+				</p>
+				<p>
+					Hoy sigo haciendo las dos cosas a la vez: programar y enseñar a
+					programar. Por eso en mis clases no se aprende solo lo que dice el
+					temario, se aprende lo que de verdad se usa en un equipo de
+					desarrollo — con JavaScript, PHP, Kotlin y Java de por medio.
+				</p>
+				<p>
+					Y sí, soy de los que defienden <strong>la IA aplicada al
+					desarrollo</strong> — sin miedo y sin postureo. La uso, la enseño y,
+					sobre todo, la disfruto. Creo que dentro de unos años hablaremos de
+					ella como hoy hablamos de la calculadora o la imprenta: herramientas
+					que en su día asustaron y que hoy nadie discute. No viene a
+					quitarnos el oficio, viene a que
+					lo hagamos mejor.
+				</p>
+				<p>
+					Hablo español, inglés, francés y catalán, y <strong>más de 10 años</strong> después
+					de mi primera línea de código, sigo sin aburrirme.
+				</p>
+			</div>
+		</section>
+
+		<section id="trayectoria" class="reveal">
+			<div class="wrap">
+				<h2 class="section-label">Trayectoria</h2>
+				<ol class="timeline">
+					<li>
+						<time>sept. 2026 — actualidad</time>
+						<div>
+							<p class="role">Profesor de Ciclos Formativos de Informática y Bachillerato</p>
+							<p class="org">IES Thiar, Pilar de la Horadada — Funcionario</p>
+							<p class="desc">2º de Bachillerato, Sistemas Microinformáticos y Redes (SMR) y Desarrollo de Aplicaciones Multiplataforma (DAM).</p>
+						</div>
+					</li>
+					<li>
+						<time>sept. 2025 — ago. 2026</time>
+						<div>
+							<p class="role">Profesor de Ciclos Formativos de Informática</p>
+							<p class="org">IES Las Espeñetas, Orihuela — Funcionario</p>
+							<p class="desc">Desarrollo de Aplicaciones Multiplataforma (DAM).</p>
+						</div>
+					</li>
+					<li>
+						<time>sept. 2024 — ago. 2025</time>
+						<div>
+							<p class="role">Profesor de Ciclos Formativos de Informática</p>
+							<p class="org">IES La Encantá, Rojales — Interino</p>
+							<p class="desc">Sistemas Microinformáticos y Redes (SMR) y Desarrollo de Aplicaciones Web (DAW).</p>
+						</div>
+					</li>
+					<li>
+						<time>sept. 2023 — ago. 2024</time>
+						<div>
+							<p class="role">Profesor de Ciclos Formativos de Informática</p>
+							<p class="org">IES Las Espeñetas, Orihuela — Interino</p>
+							<p class="desc">Desarrollo de Aplicaciones Multiplataforma (DAM).</p>
+						</div>
+					</li>
+					<li>
+						<time>sept. 2022 — ago. 2023</time>
+						<div>
+							<p class="role">Profesor de Ciclos Formativos de Informática</p>
+							<p class="org">IES Severo Ochoa, Elche — Interino</p>
+							<p class="desc">Sistemas Microinformáticos y Redes (SMR), Desarrollo de Aplicaciones Web (DAW) y Desarrollo de Aplicaciones Multiplataforma (DAM).</p>
+						</div>
+					</li>
+					<li>
+						<time>ene. 2022 — mar. 2022</time>
+						<div>
+							<p class="role">Prácticas del Máster de Profesorado</p>
+							<p class="org">IES Gabriel Miró, Orihuela — Departamento de Tecnología</p>
+						</div>
+					</li>
+					<li>
+						<time>jun. 2018 — dic. 2021</time>
+						<div>
+							<p class="role">Desarrollador Web Senior</p>
+							<p class="org">Soy.es — Nicripsia Internet SL, Agencia eCommerce</p>
+							<p class="desc">Especializado en PrestaShop y WordPress.</p>
+						</div>
+					</li>
+					<li>
+						<time>jun. 2016 — jun. 2018</time>
+						<div>
+							<p class="role">Developer</p>
+							<p class="org">Soy.es — Nicripsia Internet SL, Agencia eCommerce</p>
+							<p class="desc">Desarrollo web especializado en PrestaShop y WordPress.</p>
+						</div>
+					</li>
+				</ol>
+			</div>
+		</section>
+	</main>
+</Layout>

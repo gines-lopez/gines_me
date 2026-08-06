@@ -1,0 +1,47 @@
+---
+interface Props {
+	variant?: 'full' | 'simple';
+}
+
+const { variant = 'simple' } = Astro.props;
+---
+
+{
+	variant === 'full' ? (
+		<footer>
+			<div class="wrap">
+				<h2>¿Hablamos?</h2>
+				<p class="lede">
+					Para consultas sobre docencia, desarrollo web o colaboraciones, el correo y LinkedIn son la
+					vía más directa.
+				</p>
+				<div class="hero-actions">
+					<a class="btn primary" href="mailto:docentegineslopez@gmail.com">
+						Escribir un correo
+					</a>
+					<a class="btn" href="https://gines-lopez.github.io" target="_blank" rel="noopener">
+						Mis apuntes
+					</a>
+					<a class="btn" href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">
+						LinkedIn
+					</a>
+					<a
+						class="btn"
+						href="https://www.instagram.com/docentegineslopez"
+						target="_blank"
+						rel="noopener"
+					>
+						Instagram
+					</a>
+				</div>
+				<p class="fineprint">© <span id="year" /> Ginés López García · gines.me</p>
+			</div>
+		</footer>
+	) : (
+		<footer class="footer-simple">
+			<div class="wrap">
+				<p class="fineprint">© <span id="year" /> Ginés López García · gines.me</p>
+			</div>
+		</footer>
+	)
+}
