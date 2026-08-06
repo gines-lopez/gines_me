@@ -29,6 +29,7 @@ jobs:
           git config user.email "github-actions@github.com"
           git fetch origin production && git checkout production || git checkout --orphan production
           git rm -rf --ignore-unmatch . > /dev/null
+          find . -maxdepth 1 ! -name . ! -name .git -exec rm -rf {} +
           cp -a /tmp/site/. .
           git add -A
           git commit -m "Build ${GITHUB_SHA}" || echo "Sin cambios"
