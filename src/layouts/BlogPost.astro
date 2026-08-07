@@ -13,7 +13,7 @@ const { title, description, pubDate, updatedDate, heroImage, article = true } = 
 	<main class="page-main post-main">
 		<article class="reveal">
 			<div class="hero-image">
-				{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				{heroImage && <Image width={1020} height={510} src={heroImage} alt={title} />}
 			</div>
 			<div class="prose">
 				<div class="title">
