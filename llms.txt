@@ -1,0 +1,10 @@
+# Ginés López García
+
+> Soy profesor funcionario de Formación Profesional en Informática para la Generalitat Valenciana y desarrollador web con más de 10 años de experiencia, especializado en IA aplicada al desarrollo y a la docencia. Este sitio recoge mi trayectoria, mis proyectos y lo que enseño sobre programación e inteligencia artificial a alumnos de DAM, DAW y SMR.
+
+## Páginas principales
+
+- [Inicio](https://gines.me/): Presentación general y punto de entrada al sitio, para quien quiera conocer mi perfil como docente y desarrollador.
+- [Sobre mí](https://gines.me/sobre-mi/): Mi trayectoria completa, de desarrollador web a profesor de FP y opositor aprobado, para quien quiera conocerme en profundidad.
+- [Blog](https://gines.me/blog/): Artículos sobre proyectos, aprendizajes y reflexiones sobre IA aplicada a la educación, para docentes y desarrolladores.
+- [Contacto](https://gines.me/contacto/): Formas de ponerse en contacto conmigo, para alumnos, centros o colaboradores.
