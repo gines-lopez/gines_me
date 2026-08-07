@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul class="post-list">
+	{
+		posts.map((post) => (
+			<li>
+				<a href={`/blog/${post.id}/`}>
+					{post.data.heroImage && (
+						<Image width={720} height={360} src={post.data.heroImage} alt={post.data.title} />
+					)}
+					<h4 class="title">{post.data.title}</h4>
+					<p class="date">
+						<FormattedDate date={post.data.pubDate} />
+					</p>
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.post-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	.post-list li {
+		width: calc(50% - 1rem);
+	}
+	.post-list li * {
+		text-decoration: none;
+		transition: opacity 0.15s ease, color 0.15s ease;
+	}
+	.post-list li:first-child {
+		width: 100%;
+		margin-bottom: 1rem;
+		text-align: center;
+	}
+	.post-list li:first-child img {
+		width: 100%;
+	}
+	.post-list li:first-child .title {
+		font-size: 2.369rem;
+	}
+	.post-list li img {
+		display: block;
+		margin-bottom: 0.75rem;
+		border-radius: 4px;
+	}
+	.post-list li a {
+		display: block;
+	}
+	.title {
+		margin: 0;
+		font-family: var(--font-sans);
+		font-weight: 800;
+		letter-spacing: -0.01em;
+		color: var(--ink);
+		line-height: 1.2;
+	}
+	.date {
+		max-width: none;
+		margin: 0.3rem 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--ink-muted);
+	}
+	.post-list li a:hover h4,
+	.post-list li a:hover .date {
+		color: var(--accent);
+	}
+	.post-list a:hover img {
+		opacity: 0.85;
+	}
+	@media (max-width: 720px) {
+		.post-list {
+			gap: 0.5em;
+		}
+		.post-list li {
+			width: 100%;
+			text-align: center;
+		}
+		.post-list li:first-child {
+			margin-bottom: 0;
+		}
+		.post-list li:first-child .title {
+			font-size: 1.563em;
+		}
+	}
+</style>

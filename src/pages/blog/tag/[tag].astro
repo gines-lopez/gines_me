@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import PostList from '../../../components/PostList.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { SITE_TITLE } from '../../../consts';
+import { slugifyTag } from '../../../lib/slug';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	const tagMap = new Map<string, { label: string; posts: CollectionEntry<'blog'>[] }>();
+
+	for (const post of posts) {
+		for (const tag of post.data.tags) {
+			const slug = slugifyTag(tag);
+			const entry = tagMap.get(slug) ?? { label: tag, posts: [] };
+			entry.posts.push(post);
+			tagMap.set(slug, entry);
+		}
+	}
+
+	return Array.from(tagMap.entries()).map(([slug, { label, posts: tagPosts }]) => ({
+		params: { tag: slug },
+		props: {
+			label,
+			posts: tagPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+interface Props {
+	label: string;
+	posts: CollectionEntry<'blog'>[];
+}
+
+const { label, posts } = Astro.props;
+
+const title = `${label} — Blog — ${SITE_TITLE}`;
+const description = `Artículos etiquetados con «${label}» en el blog de ${SITE_TITLE}.`;
+---
+
+<Layout title={title} description={description}>
+	<main class="page-main blog-list">
+		<section class="reveal">
+			<div class="wrap">
+				<h1 class="section-title">Etiqueta: {label}</h1>
+			</div>
+			<PostList posts={posts} />
+		</section>
+	</main>
+
+	<style>
+		.blog-list {
+			width: 960px;
+			max-width: calc(100% - 2em);
+			margin: 0 auto;
+		}
+		.blog-list h1 {
+			margin-bottom: 1.5rem;
+		}
+	</style>
+</Layout>

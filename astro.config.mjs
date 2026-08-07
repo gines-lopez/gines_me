@@ -7,7 +7,12 @@ import { defineConfig, fontProviders } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://gines.me',
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx(),
+		sitemap({
+			filter: (page) => !page.includes('/blog/tag/'),
+		}),
+	],
 	fonts: [
 		{
 			provider: fontProviders.local(),
