@@ -12,9 +12,17 @@ interface Props {
 	image?: ImageMetadata;
 	article?: boolean;
 	footerVariant?: 'full' | 'simple';
+	noindex?: boolean;
 }
 
-const { title, description, image, article = false, footerVariant = 'simple' } = Astro.props;
+const {
+	title,
+	description,
+	image,
+	article = false,
+	footerVariant = 'simple',
+	noindex = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -22,8 +30,8 @@ const { title, description, image, article = false, footerVariant = 'simple' } =
 	<head>
 		<BaseHead />
 		<SEO title={title} description={description} image={image} article={article} />
-		<meta name="robots" content="index, follow" />
-		<meta name="author" content="Ginés López García" />
+		<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+		<meta name="author" content="Ginés López" />
 		<meta property="og:locale" content="es_ES" />
 		<meta name="theme-color" content="#FDFDFC" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)" />

@@ -8,14 +8,22 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const title = `Blog — ${SITE_TITLE}`;
+const title = `Blog de IA aplicada a la educación — ${SITE_TITLE}`;
 const description =
-	'Artículos sobre desarrollo web, oposiciones docentes e inteligencia artificial aplicada a la programación.';
+	'Diario de lo que aprendo aplicando IA en la docencia y en mis propios proyectos: qué funciona, qué no, y por qué.';
 ---
 
 <Layout title={title} description={description}>
 	<main class="page-main blog-list">
 		<section class="reveal">
+			<div class="wrap">
+				<h1 class="section-title">IA aplicada a la educación</h1>
+				<p>
+					Todo lo que voy aprendiendo sobre IA aplicada a la educación: en
+					el aula, en mis clases de DAM, DAW y SMR, y en los dos proyectos
+					que estoy construyendo.
+				</p>
+			</div>
 			<PostList posts={posts} />
 		</section>
 	</main>

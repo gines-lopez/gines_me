@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = 'Ginés López';
 export const SITE_DESCRIPTION =
-	'Profesor de Formación Profesional en Informática, opositor aprobado y desarrollador web. Escribo sobre programación, oposiciones e IA aplicada al desarrollo.';
+	'Diario de IA aplicada a la educación: lo que aprendo llevando la IA al aula de FP y construyendo mis propios proyectos.';
