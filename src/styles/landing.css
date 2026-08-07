@@ -82,6 +82,29 @@ pre code {
   all: unset;
 }
 
+blockquote {
+  margin: 1.5em 0;
+  padding: 0.2em 0 0.2em 1.25em;
+  border-left: 3px solid var(--accent);
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0 0 0.6em;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+blockquote cite {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.85em;
+  color: var(--ink-muted);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
@@ -219,6 +242,13 @@ section p { max-width: 90ch; }
 section p + p { margin-top: 1.15rem; }
 section strong { font-weight: 700; }
 
+/* ---------- ¿Quién es Ginés López? (bloque oscuro) ---------- */
+#historia {
+  background: #000;
+  color: #fff;
+  border-top: none;
+}
+
 /* ---------- Trayectoria ---------- */
 h2.section-label {
   font-family: var(--font-heading);
@@ -236,6 +266,7 @@ h2.section-title {
   font-size: clamp(1.5rem, 3.4vw, 1.9rem);
   letter-spacing: -0.01em;
   margin: 0 0 1.6rem;
+  max-width: none;
   text-wrap: balance;
 }
 .timeline { list-style: none; margin: 0; padding: 0; }

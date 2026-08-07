@@ -54,12 +54,9 @@ const description = 'El manifiesto del uso de la IA en este proyecto.';
 				<blockquote>
 					<p>
 						Mejor hecho que perfecto.<br />
-						— <cite
-							><a
-								href="https://medium.com/@bre/the-cult-of-done-manifesto-724ca1c2ff13"
-								target="_blank"
-								rel="noopener">Bre Pettis y Kio Stark, The Cult of Done</a
-							></cite
+						— <cite>Bre Pettis y Kio Stark, The Cult of Done</cite><sup
+							id="fnref-cod"
+							><a href="#fn-cod" aria-label="Ver nota 1">1</a></sup
 						>
 					</p>
 				</blockquote>
@@ -69,7 +66,38 @@ const description = 'El manifiesto del uso de la IA en este proyecto.';
 						>mandarme un correo</a
 					>.
 				</p>
+				<ol class="footnotes">
+					<li id="fn-cod">
+						Bre Pettis y Kio Stark, «The Cult of Done Manifesto», <a
+							href="https://medium.com/@bre/the-cult-of-done-manifesto-724ca1c2ff13"
+							target="_blank"
+							rel="noopener">medium.com</a
+						>. <a href="#fnref-cod" aria-label="Volver al texto">↩</a>
+					</li>
+				</ol>
 			</div>
 		</section>
 	</main>
 </Layout>
+
+<style>
+	sup a {
+		font-style: normal;
+		text-decoration: none;
+		color: var(--accent);
+		padding: 0 0.1em;
+	}
+	.footnotes {
+		margin: 2.5em 0 0;
+		padding-top: 1.2em;
+		border-top: 1px solid var(--rule);
+		font-size: 0.85em;
+		color: var(--ink-muted);
+	}
+	.footnotes li::marker {
+		color: var(--ink-muted);
+	}
+	.footnotes a {
+		color: var(--accent);
+	}
+</style>
