@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import { SITE_TITLE } from '../consts';
 ---
 
@@ -15,3 +16,5 @@ import { SITE_TITLE } from '../consts';
 	href={new URL('rss.xml', Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+<Font cssVariable="--font-inter" preload />
+<Font cssVariable="--font-roboto" preload />

@@ -6,8 +6,8 @@
   --rule: #E7E7E3;
   --focus: #1D3557;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", "Noto Serif", Georgia, serif;
+  --font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-roboto), -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
 
   --topbar-h: 4.25rem;
@@ -49,7 +49,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -129,7 +129,7 @@ a:focus-visible, button:focus-visible {
   max-width: 660px;
 }
 .mark {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.95rem;
   letter-spacing: -0.01em;
@@ -139,7 +139,7 @@ a:focus-visible, button:focus-visible {
 }
 .mark:hover { color: var(--accent); }
 .topbar-link {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-size: 0.9rem;
   text-decoration: none;
   color: var(--ink);
@@ -159,7 +159,7 @@ a:focus-visible, button:focus-visible {
   justify-content: center;
 }
 .eyebrow {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-weight: 700;
   font-style: italic;
   font-size: 1.02rem;
@@ -167,7 +167,7 @@ a:focus-visible, button:focus-visible {
   margin: 0 0 1.1rem;
 }
 h1 {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: clamp(2.1rem, 5.6vw, 3.2rem);
   line-height: 1.1;
@@ -183,7 +183,7 @@ h1 {
   margin: 0 auto 1.6rem;
 }
 .hero-note {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.8rem;
   color: var(--ink-muted);
   margin: 0 0 2.1rem;
@@ -195,7 +195,7 @@ h1 {
   gap: 0.9rem;
 }
 .btn {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.94rem;
   text-decoration: none;
@@ -221,7 +221,7 @@ section strong { font-weight: 700; }
 
 /* ---------- Trayectoria ---------- */
 h2.section-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -231,7 +231,7 @@ h2.section-label {
 }
 h1.section-title,
 h2.section-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: clamp(1.5rem, 3.4vw, 1.9rem);
   letter-spacing: -0.01em;
@@ -248,13 +248,13 @@ h2.section-title {
 }
 .timeline li:first-child { border-top: none; padding-top: 0; }
 .timeline time {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.78rem;
   color: var(--ink-muted);
   padding-top: 0.2rem;
   font-variant-numeric: tabular-nums;
 }
-.timeline .role { font-family: var(--font-sans); font-weight: 700; margin: 0; }
+.timeline .role { font-family: var(--font-heading); font-weight: 700; margin: 0; }
 .timeline .org { color: var(--ink-muted); font-size: 0.95rem; margin: 0.2rem 0 0.4rem; }
 .timeline .desc { margin: 0; font-size: 0.96rem; }
 
@@ -265,7 +265,7 @@ h2.section-title {
 /* ---------- Lo último que he hecho ---------- */
 .see-all {
   margin-top: 1.8rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-weight: 600;
   font-size: 0.94rem;
 }
@@ -275,7 +275,7 @@ h2.section-title {
 /* ---------- Footer / contacto ---------- */
 footer { border-top: 1px solid var(--rule); padding: 3.2rem 0 3.6rem; text-align: center; }
 footer h2 {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.7rem;
   margin: 0 0 0.7rem;
@@ -283,7 +283,7 @@ footer h2 {
 footer .lede { color: var(--ink-muted); margin: 0 auto 1.8rem; max-width: 42ch; }
 .fineprint {
   margin-top: 2.4rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.75rem;
   color: var(--ink-muted);
 }
@@ -356,7 +356,7 @@ footer .lede { color: var(--ink-muted); margin: 0 auto 1.8rem; max-width: 42ch; 
 }
 .footer-links a,
 .footer-social a {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-size: 0.85rem;
   color: var(--ink);
   text-decoration: none;
