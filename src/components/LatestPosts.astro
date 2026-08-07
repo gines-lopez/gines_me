@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 4);
+---
+
+<ul class="latest-posts">
+	{
+		posts.map((post) => (
+			<li>
+				<a href={`/blog/${post.id}/`}>
+					{post.data.heroImage && (
+						<Image width={480} height={320} src={post.data.heroImage} alt="" />
+					)}
+					<h3 class="title">{post.data.title}</h3>
+					<p class="date">
+						<FormattedDate date={post.data.pubDate} />
+					</p>
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.latest-posts {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem 1.25rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.latest-posts li a {
+		display: block;
+		text-decoration: none;
+	}
+	.latest-posts img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		object-fit: cover;
+		border-radius: 4px;
+		margin-bottom: 0.6rem;
+	}
+	.latest-posts .title {
+		margin: 0;
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-size: 1rem;
+		letter-spacing: -0.01em;
+		line-height: 1.3;
+		color: var(--ink);
+		transition: color 0.15s ease;
+	}
+	.latest-posts .date {
+		max-width: none;
+		margin: 0.3rem 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--ink-muted);
+	}
+	.latest-posts li a:hover .title,
+	.latest-posts li a:hover .date {
+		color: var(--accent);
+	}
+	.latest-posts li a:hover img {
+		opacity: 0.85;
+	}
+
+	@media (max-width: 480px) {
+		.latest-posts {
+			gap: 1rem 0.75rem;
+		}
+		.latest-posts .title {
+			font-size: 0.9rem;
+		}
+	}
+</style>

@@ -12,26 +12,18 @@ const { variant = 'simple' } = Astro.props;
 			<div class="wrap">
 				<h2>¿Hablamos?</h2>
 				<p class="lede">
-					Para consultas sobre docencia, desarrollo web o colaboraciones, el correo y LinkedIn son la
-					vía más directa.
+					Escríbeme si quieres charlar de docencia, desarrollo web o alguna colaboración, echa un
+					vistazo a mis apuntes o pásate por mis proyectos en Docentemente.
 				</p>
 				<div class="hero-actions">
-					<a class="btn primary" href="mailto:docentegineslopez@gmail.com">
+					<a class="btn primary" href="/contacto/">
 						Escribir un correo
 					</a>
 					<a class="btn" href="https://gines-lopez.github.io" target="_blank" rel="noopener">
 						Mis apuntes
 					</a>
-					<a class="btn" href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">
-						LinkedIn
-					</a>
-					<a
-						class="btn"
-						href="https://www.instagram.com/docentegineslopez"
-						target="_blank"
-						rel="noopener"
-					>
-						Instagram
+					<a class="btn" href="https://docentemente.com" target="_blank" rel="noopener">
+						Docentemente
 					</a>
 				</div>
 				<p class="fineprint">© <span id="year" /> Ginés López García · gines.me</p>
@@ -39,8 +31,16 @@ const { variant = 'simple' } = Astro.props;
 		</footer>
 	) : (
 		<footer class="footer-simple">
-			<div class="wrap">
-				<p class="fineprint">© <span id="year" /> Ginés López García · gines.me</p>
+			<div class="wrap footer-cols">
+				<p class="fineprint">© <span id="year" /> gines.me</p>
+				<nav class="footer-links">
+					<a href="/sobre-mi/">Sobre mí</a>
+					<a href="/contacto/">Contacto</a>
+				</nav>
+				<div class="footer-social">
+					<a href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a>
+					<a href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>
+				</div>
 			</div>
 		</footer>
 	)

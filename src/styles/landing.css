@@ -262,6 +262,16 @@ h2.section-title {
   .timeline li { grid-template-columns: 1fr; gap: 0.25rem; }
 }
 
+/* ---------- Lo último que he hecho ---------- */
+.see-all {
+  margin-top: 1.8rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.94rem;
+}
+.see-all a { text-decoration: none; }
+.see-all a:hover { opacity: 0.7; }
+
 /* ---------- Footer / contacto ---------- */
 footer { border-top: 1px solid var(--rule); padding: 3.2rem 0 3.6rem; text-align: center; }
 footer h2 {
@@ -332,4 +342,43 @@ footer .lede { color: var(--ink-muted); margin: 0 auto 1.8rem; max-width: 42ch; 
 }
 .footer-simple .fineprint {
   margin-top: 0;
+}
+.footer-cols {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.footer-links,
+.footer-social {
+  display: flex;
+  gap: 1.25rem;
+}
+.footer-links a,
+.footer-social a {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.footer-links a:hover,
+.footer-social a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.footer-social {
+  justify-content: flex-end;
+}
+
+@media (max-width: 540px) {
+  .footer-cols {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .footer-social {
+    justify-content: center;
+  }
 }
