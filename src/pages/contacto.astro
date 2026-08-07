@@ -20,29 +20,27 @@ const asunto = encodeURIComponent('Contacto desde gines.me');
 					respondo en cuanto pueda.
 				</p>
 
-				<p class="contact-email">
+				<div class="contact-actions">
 					<a class="btn primary" href={`mailto:${email}?subject=${asunto}`}>
 						Escribir a {email}
 					</a>
-				</p>
-
-				<p class="contact-alt">
-					También puedes escribirme por
-					<a href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a>
-					o por
-					<a href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>.
-				</p>
+					<a class="btn" href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">
+						LinkedIn
+					</a>
+					<a class="btn" href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">
+						Instagram
+					</a>
+				</div>
 			</div>
 		</section>
 	</main>
 
 	<style>
-		.contact-email {
+		.contact-actions {
 			margin-top: 2rem;
-		}
-		.contact-alt {
-			margin-top: 1rem;
-			color: var(--ink-muted);
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
 		}
 	</style>
 </Layout>
