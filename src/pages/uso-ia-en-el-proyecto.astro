@@ -1,14 +1,24 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import shareImage from '../assets/uso-ia-en-el-proyecto.png';
 
 const title = 'Uso de la IA en este proyecto — Ginés López';
 const description = 'El manifiesto del uso de la IA en este proyecto.';
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} image={shareImage}>
 	<main class="page-main">
 		<section class="reveal">
 			<div class="wrap">
+				<div class="hero-image">
+					<Image
+						width={1020}
+						height={510}
+						src={shareImage}
+						alt="Uso de la IA en este proyecto"
+					/>
+				</div>
 				<h1 class="section-title">Uso de la IA en este proyecto</h1>
 				<p>
 					La IA está, a día de hoy, en todas partes —o intentan que lo esté.
@@ -81,6 +91,15 @@ const description = 'El manifiesto del uso de la IA en este proyecto.';
 </Layout>
 
 <style>
+	.hero-image {
+		margin-bottom: 1.5em;
+	}
+	.hero-image img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 4px;
+	}
 	sup a {
 		font-style: normal;
 		text-decoration: none;
