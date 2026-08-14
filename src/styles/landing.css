@@ -375,15 +375,18 @@ footer .lede { color: var(--ink-muted); margin: 0 auto 1.8rem; max-width: 42ch; 
   margin-top: 0;
 }
 .footer-cols {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
 }
 .footer-links,
 .footer-social {
   display: flex;
   gap: 1.25rem;
+}
+.footer-links {
+  justify-self: center;
 }
 .footer-links a,
 .footer-social a {
@@ -406,6 +409,7 @@ footer .lede { color: var(--ink-muted); margin: 0 auto 1.8rem; max-width: 42ch; 
 
 @media (max-width: 540px) {
   .footer-cols {
+    display: flex;
     flex-direction: column;
     gap: 0.9rem;
   }
