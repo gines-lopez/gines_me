@@ -373,6 +373,7 @@ footer .lede { color: var(--ink-muted); margin: 0 auto 1.8rem; max-width: 42ch; 
 }
 .footer-simple .fineprint {
   margin-top: 0;
+  margin-bottom: 0;
 }
 .footer-cols {
   display: grid;
