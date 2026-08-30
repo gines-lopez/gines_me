@@ -32,7 +32,16 @@ const otherEditions = [prevPost, nextPost].filter(
 	<main class="page-main post-main">
 		<article class="reveal">
 			<div class="hero-image">
-				{heroImage && <Image width={1020} height={510} src={heroImage} alt={title} />}
+				{heroImage && (
+					<Image
+						width={1020}
+						height={510}
+						src={heroImage}
+						alt={title}
+						loading="eager"
+						fetchpriority="high"
+					/>
+				)}
 			</div>
 			<div class="prose">
 				<div class="title">
@@ -123,7 +132,7 @@ const otherEditions = [prevPost, nextPost].filter(
 		.post-main {
 			width: calc(100% - 2em);
 			max-width: 100%;
-			margin: 0;
+			margin: 0 auto;
 		}
 		.hero-image {
 			width: 100%;

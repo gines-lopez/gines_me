@@ -12,11 +12,18 @@ const { posts } = Astro.props;
 
 <ul class="post-list">
 	{
-		posts.map((post) => (
+		posts.map((post, index) => (
 			<li>
 				<a href={`/blog/${post.id}/`}>
 					{post.data.heroImage && (
-						<Image width={720} height={360} src={post.data.heroImage} alt={post.data.title} />
+						<Image
+							width={720}
+							height={360}
+							src={post.data.heroImage}
+							alt={post.data.title}
+							loading={index === 0 ? 'eager' : 'lazy'}
+							fetchpriority={index === 0 ? 'high' : 'auto'}
+						/>
 					)}
 					<h4 class="title">{post.data.title}</h4>
 					<p class="date">
@@ -35,7 +42,7 @@ const { posts } = Astro.props;
 		gap: 2rem;
 		list-style-type: none;
 		margin: 0;
-		padding: 0;
+		padding: 0 1.5rem;
 	}
 	.post-list li {
 		width: calc(50% - 1rem);
@@ -81,6 +88,11 @@ const { posts } = Astro.props;
 		.post-list li {
 			width: 100%;
 			text-align: center;
+		}
+	}
+	@media (max-width: 480px) {
+		.post-list {
+			padding: 0 1.25rem;
 		}
 	}
 </style>
