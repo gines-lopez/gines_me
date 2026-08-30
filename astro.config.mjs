@@ -7,6 +7,12 @@ import { defineConfig, fontProviders } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://gines.me',
+	markdown: {
+		remarkRehype: {
+			footnoteLabel: 'Notas',
+			footnoteBackLabel: 'Volver al texto',
+		},
+	},
 	integrations: [
 		mdx(),
 		sitemap({
