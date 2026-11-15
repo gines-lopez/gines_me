@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
+import PostList from '../components/PostList.astro';
+import { SITE_TITLE } from '../consts';
 import { slugifyTag } from '../lib/slug';
 import Layout from './Layout.astro';
 
@@ -23,79 +25,87 @@ const {
 	article = true,
 } = Astro.props;
 
-const otherEditions = [prevPost, nextPost].filter(
+const otherEditions = [nextPost, prevPost].filter(
 	(post): post is CollectionEntry<'blog'> => post !== undefined,
 );
+const [mainTag, ...otherTags] = tags;
 ---
 
 <Layout title={title} description={description} image={heroImage} article={article}>
-	<main class="page-main post-main">
-		<article class="reveal">
-			<div class="hero-image">
-				{heroImage && (
-					<Image
-						width={1020}
-						height={510}
-						src={heroImage}
-						alt={title}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				)}
-			</div>
-			<div class="prose">
-				<div class="title">
-					<div class="date">
-						<FormattedDate date={pubDate} />
-						{
-							updatedDate && (
-								<div class="last-updated-on">
-									Última actualización: <FormattedDate date={updatedDate} />
-								</div>
-							)
-						}
-					</div>
-					<h1>{title}</h1>
+	<main class="page-main">
+		<article class="post">
+			<header class="post-header">
+				<p class="post-header__meta">
 					{
-						tags && tags.length > 0 && (
-							<ul class="tags">
-								{tags.map((tag) => (
-									<li>
-										<a href={`/blog/tag/${slugifyTag(tag)}/`}>{tag}</a>
-									</li>
-								))}
-							</ul>
+						mainTag && (
+							<>
+								<a href={`/blog/tag/${slugifyTag(mainTag)}/`}>{mainTag}</a>
+								<span class="post-header__dot" aria-hidden="true">·</span>
+							</>
 						)
 					}
-					<hr class="rule" />
+					<FormattedDate date={pubDate} format="long" />
+				</p>
+				<div class="post-header__group">
+					<h1 class="post-header__title">{title}</h1>
+					<p class="post-header__subtitle">{description}</p>
 				</div>
-				<slot />
-			</div>
+				<p class="post-header__author">
+					<span class="post-header__avatar" aria-hidden="true">GL</span>
+					<a href="/sobre-mi/">{SITE_TITLE}</a>
+				</p>
+				{
+					updatedDate && (
+						<p class="post-header__updated">
+							Última actualización: <FormattedDate date={updatedDate} format="long" />
+						</p>
+					)
+				}
+			</header>
+
 			{
-				otherEditions.length > 0 && (
-					<div class="other-editions">
-						<p class="other-editions-label">En otras ediciones...</p>
-						<ul class="other-editions-list">
-							{otherEditions.map((post) => (
+				heroImage && (
+					<figure class="post-hero">
+						<Image
+							src={heroImage}
+							alt=""
+							widths={[640, 960, 1280, 1780]}
+							sizes="(min-width: 1248px) 1216px, calc(100vw - 32px)"
+							loading="eager"
+							fetchpriority="high"
+						/>
+					</figure>
+				)
+			}
+
+			<div class="prose">
+				<slot />
+				{
+					otherTags.length > 0 && (
+						<ul class="post-tags">
+							{otherTags.map((tag) => (
 								<li>
-									<a href={`/blog/${post.id}/`}>
-										{post.data.heroImage && (
-											<Image
-												width={480}
-												height={320}
-												src={post.data.heroImage}
-												alt={post.data.title}
-											/>
-										)}
-										<p class="card-title">{post.data.title}</p>
-									</a>
+									<a href={`/blog/tag/${slugifyTag(tag)}/`}>{tag}</a>
 								</li>
 							))}
 						</ul>
-					</div>
-				)
-			}
+					)
+				}
+			</div>
 		</article>
+
+		{
+			otherEditions.length > 0 && (
+				<aside class="more-posts reveal" aria-labelledby="sigue-leyendo">
+					<div class="more-posts__container">
+						<h2 id="sigue-leyendo" class="more-posts__title">
+							En otras ediciones…
+						</h2>
+						<PostList posts={otherEditions} headingLevel={3} />
+					</div>
+				</aside>
+			)
+		}
 	</main>
 
 	<script>
@@ -129,131 +139,252 @@ const otherEditions = [prevPost, nextPost].filter(
 	</script>
 
 	<style>
-		.post-main {
-			width: calc(100% - 2em);
-			max-width: 100%;
-			margin: 0 auto;
-		}
-		.hero-image {
-			width: 100%;
-		}
-		.hero-image img {
-			display: block;
-			max-width: 100%;
-			height: auto;
-			margin: 0 auto;
-			border-radius: 4px;
-		}
-		.prose {
-			width: 720px;
-			max-width: calc(100% - 2em);
-			margin: auto;
-			padding: 1em;
-			color: var(--ink);
-		}
-		.title {
-			margin-bottom: 1em;
-			padding: 1em 0;
+		/* ---------- Cabecera del post ---------- */
+		.post-header {
+			max-width: 960px;
+			margin: 56px auto 40px;
+			padding: 0 16px;
 			text-align: center;
-			line-height: 1;
 		}
-		.title h1 {
-			margin: 0 0 0.5em;
-		}
-		.date {
+		.post-header__meta,
+		.post-header__author {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
 			font-family: var(--font-heading);
-			font-size: 0.85rem;
-			margin-bottom: 0.5em;
+			font-size: 0.9rem;
+			font-weight: 500;
+			line-height: 1.5;
 			color: var(--ink-muted);
 		}
-		.last-updated-on {
-			font-style: italic;
+		.post-header__meta a {
+			color: var(--accent);
+			font-weight: 600;
+			text-decoration: none;
 		}
-		.tags {
+		.post-header__meta a:hover {
+			text-decoration: underline;
+		}
+		.post-header__dot {
+			padding: 0 8px;
+		}
+		.post-header__group {
+			padding: 24px 0;
+		}
+		.post-header__title {
+			max-width: 22ch;
+			margin: 0 auto 16px;
+			font-size: clamp(1.75rem, 5.5vw, 3.25rem);
+			line-height: 1.1;
+		}
+		.post-header__subtitle {
+			max-width: 46ch;
+			margin: 0 auto;
+			font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+			line-height: 1.4;
+			color: var(--ink-muted);
+			text-wrap: balance;
+		}
+		.post-header__author a {
+			color: var(--ink);
+			text-decoration: none;
+		}
+		.post-header__author a:hover {
+			text-decoration: underline;
+		}
+		.post-header__avatar {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 36px;
+			height: 36px;
+			margin-right: 12px;
+			border-radius: 50%;
+			background: var(--ink);
+			color: var(--bg);
+			font-size: 0.75rem;
+			font-weight: 800;
+			letter-spacing: 0.02em;
+		}
+		.post-header__updated {
+			margin: 12px 0 0;
+			font-family: var(--font-heading);
+			font-size: 0.8rem;
+			font-style: italic;
+			color: var(--ink-muted);
+		}
+
+		/* ---------- Imagen principal (ancha) ---------- */
+		.post-hero {
+			max-width: 1248px;
+			margin: 0 auto 48px;
+			padding: 0 16px;
+		}
+		.post-hero img {
+			display: block;
+			width: 100%;
+			height: auto;
+			border-radius: 8px;
+		}
+
+		/* ---------- Cuerpo ---------- */
+		.prose {
+			max-width: 672px;
+			margin: 0 auto 80px;
+			padding: 0 16px;
+			color: var(--ink);
+		}
+		.post-tags {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: center;
 			gap: 0.5rem;
 			list-style: none;
-			margin: 0 0 1em;
+			margin: 48px 0 0;
 			padding: 0;
 		}
-		.tags li a {
+		.post-tags li a {
 			display: block;
 			font-family: var(--font-heading);
-			font-size: 0.78rem;
+			font-size: 0.8rem;
 			color: var(--ink-muted);
 			text-decoration: none;
 			border: 1px solid var(--rule);
 			border-radius: 999px;
-			padding: 0.2rem 0.7rem;
+			padding: 0.2rem 0.75rem;
 			transition: color 0.15s ease, border-color 0.15s ease;
 		}
-		.tags li a:hover {
+		.post-tags li a:hover {
 			color: var(--accent);
 			border-color: var(--accent);
 		}
-		.other-editions {
-			width: 720px;
-			max-width: calc(100% - 2em);
-			margin: 3em auto 0;
-			padding-top: 1.5em;
+
+		/* ---------- Más artículos ---------- */
+		.more-posts {
 			border-top: 1px solid var(--rule);
+			padding: 64px 0 80px;
 		}
-		.other-editions-label {
+		.more-posts__container {
+			max-width: 1248px;
+			margin: 0 auto;
+			padding: 0 16px;
+		}
+		.more-posts__title {
+			margin: 0 0 32px;
 			font-family: var(--font-heading);
-			font-size: 0.72rem;
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			color: var(--ink-muted);
-			font-weight: 500;
-			margin: 0 0 1.6rem;
+			font-weight: 800;
+			font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+			line-height: 1.2;
+			letter-spacing: -0.02em;
 		}
-		.other-editions-list {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1.5rem 1.25rem;
-			list-style: none;
-			margin: 0;
-			padding: 0;
-		}
-		.other-editions-list li a {
-			display: block;
-			text-decoration: none;
-		}
-		.other-editions-list img {
-			display: block;
-			width: 100%;
-			aspect-ratio: 3 / 2;
-			object-fit: cover;
-			border-radius: 4px;
-			margin-bottom: 0.6rem;
-		}
-		.card-title {
-			margin: 0;
-			font-family: var(--font-heading);
-			font-weight: 700;
-			font-size: 1rem;
-			letter-spacing: -0.01em;
-			line-height: 1.3;
-			color: var(--ink);
-			transition: color 0.15s ease;
-		}
-		.other-editions-list li a:hover .card-title {
-			color: var(--accent);
-		}
-		.other-editions-list li a:hover img {
-			opacity: 0.85;
-		}
-		@media (max-width: 480px) {
-			.other-editions-list {
-				grid-template-columns: 1fr;
-				gap: 1.5rem;
+
+		@media (min-width: 576px) {
+			.post-header {
+				margin: 96px auto 56px;
+			}
+			.post-header__meta,
+			.post-header__author {
+				font-size: 1rem;
+			}
+			.post-header__group {
+				padding: 48px 0;
+			}
+			.post-header__avatar {
+				width: 40px;
+				height: 40px;
+			}
+			.post-hero {
+				margin-bottom: 64px;
+			}
+			.more-posts__title {
+				margin-bottom: 40px;
 			}
 		}
 	</style>
 
 	<style is:global>
+		/* Tipografía del contenido Markdown (estilo editorial) */
+		.prose p,
+		.prose ul,
+		.prose ol {
+			font-size: 1.0625rem;
+			line-height: 1.65;
+			margin: 20px 0;
+		}
+		.prose ul,
+		.prose ol {
+			padding-left: 1.25rem;
+		}
+		.prose li {
+			margin: 10px 0;
+			padding-left: 4px;
+		}
+		.prose li::marker {
+			color: var(--ink-muted);
+		}
+		.prose h2,
+		.prose h3,
+		.prose h4 {
+			font-family: var(--font-heading);
+			font-weight: 800;
+			letter-spacing: -0.015em;
+			color: var(--ink);
+			text-wrap: balance;
+		}
+		.prose h2 {
+			font-size: clamp(1.6rem, 3.4vw, 2.25rem);
+			line-height: 1.2;
+			margin: 56px 0 16px;
+		}
+		.prose h3 {
+			font-size: clamp(1.3rem, 2.6vw, 1.5rem);
+			line-height: 1.3;
+			margin: 40px 0 16px;
+		}
+		.prose h4 {
+			font-size: 1.15rem;
+			margin: 32px 0 12px;
+		}
+		.prose img {
+			display: block;
+			margin: 40px auto;
+			border-radius: 8px;
+		}
+		.prose hr {
+			max-width: 180px;
+			margin: 56px auto;
+			border: none;
+			border-top: 1px solid var(--rule);
+		}
+		.prose a {
+			text-decoration-thickness: 1px;
+			text-underline-offset: 3px;
+		}
+		.prose a:hover {
+			text-decoration-thickness: 2px;
+		}
+		@media (min-width: 576px) {
+			.prose p,
+			.prose ul,
+			.prose ol {
+				font-size: 1.125rem;
+				margin: 24px 0;
+			}
+			.prose ul,
+			.prose ol {
+				padding-left: 1.5rem;
+			}
+			.prose li {
+				margin: 12px 0;
+				padding-left: 8px;
+			}
+			.prose h2 {
+				margin-top: 72px;
+			}
+			.prose hr {
+				margin: 80px auto;
+			}
+		}
 		.prose .code-block {
 			position: relative;
 			margin: 1.5em 0;

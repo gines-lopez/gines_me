@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# portadas del diario (se generan en cada dev/build)
+src/assets/diario/

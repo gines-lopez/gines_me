@@ -51,6 +51,17 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 - **Citas con fuente**: el texto de una cita no se enlaza directamente. El patrón es nota a pie de página: `<sup><a href="#fn-x" id="fnref-x">n</a></sup>` junto al texto citado, y al final del contenido un `<ol class="footnotes">` con `<li id="fn-x">` que lleva el enlace real y un `↩` de vuelta a `#fnref-x`. Ver `src/pages/uso-ia-en-el-proyecto.astro` como referencia de implementación (incluye el `<style>` scoped para `sup a` y `.footnotes`).
 - **Sección oscura deliberada**: la sección `#historia` ("¿Quién es Ginés López?") en `index.astro` tiene fondo negro y texto blanco a propósito (regla `#historia` en `landing.css`), distinta al resto del sitio que es claro. No es un bug de `prefers-color-scheme` ni hay que "corregirlo" — es un bloque de diseño fijo e independiente del tema.
 
+## Ediciones del diario y portadas blueprint
+
+El blog es «El diario»: una edición mensual de building in public. Cada edición publicada recibe automáticamente una portada estilo plano (blueprint) generada desde una plantilla, nunca con IA generativa de imágenes.
+
+- **Para empezar una edición**: copia `src/content/blog/plantilla-edicion.md` a un archivo nuevo (p. ej. `noviembre-26.md`), rellénalo y cambia `draft: true` a `false`.
+- **Automático**: la integración `blueprintCovers()` de `astro.config.mjs` ejecuta `scripts/blueprint/generate.mjs` al arrancar `astro dev`/`astro build` (también en GitHub Actions, cuyo runner Ubuntu trae Chrome). Genera `src/assets/diario/<slug>.png` (1600×900, ignorado por git) solo para posts publicados y solo si han cambiado (manifest con hash).
+- **Número de edición**: orden por `pubDate` entre los posts publicados; `edition` en el frontmatter lo fuerza. `stats` (opcional, máx. 4 datos reales: `label`, `value`, `note?`) los añade a la portada.
+- **Cómo se usa**: `src/lib/cover.ts` (`getCover(post)`) devuelve el `heroImage` del post si lo tiene y, si no, su portada generada. Úsalo en vez de `post.data.heroImage`.
+- **Si Chrome falta o falla**, avisa en el log y el post sale sin portada; el build no se rompe. Con `dev` en marcha, una edición nueva necesita reiniciar el servidor para generar su portada.
+- Plantilla: `scripts/blueprint/template.mjs`; fuentes: `scripts/blueprint/fonts/`. Manual: `npm run blueprint` (`-- --force` para regenerar todas, `-- --demo ruta.png` para un ejemplo).
+
 ## Deployment
 
 `.github/workflows/deploy.yml` runs on every push to `main`: it builds the site, then force-replaces the contents of the `production` branch with the contents of `dist/` (via an orphan-branch checkout + `git rm -rf` + copy + commit). The `production` branch is a build artifact, not a development branch — never commit source changes directly to it, and treat pushes to `main` as effectively triggering a live deploy.

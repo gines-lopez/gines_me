@@ -8,31 +8,140 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const title = `Blog de IA aplicada a la educación — ${SITE_TITLE}`;
+const featured = posts.slice(0, 2);
+const latest = posts.slice(2);
+
+const title = `El diario de un solopreneur educativo — ${SITE_TITLE}`;
 const description =
-	'Diario de lo que aprendo aplicando IA en la docencia y en mis propios proyectos: qué funciona, qué no, y por qué.';
+	'Cada mes, una edición: lo que construyo con docentemente y CódigoFP siendo profesor de FP. Números, herramientas, errores y lo que haría distinto.';
 ---
 
 <Layout title={title} description={description}>
-	<main class="page-main blog-list">
-		<section class="reveal">
-			<div class="wrap">
-				<h1 class="section-title">IA aplicada a la educación</h1>
-				<p>
-					Todo lo que voy aprendiendo sobre IA aplicada a la educación: en
-					el aula, en mis clases de DAM, DAW y SMR, y en los dos proyectos
-					que estoy construyendo.
-				</p>
-			</div>
-			<PostList posts={posts} />
-		</section>
+	<main class="page-main">
+		<header class="blog-header">
+			<p class="blog-header__eyebrow">Building in public</p>
+			<h1 class="blog-header__title">El diario</h1>
+			<p class="blog-header__subtitle">
+				Cada mes cuento qué he construido con docentemente y CódigoFP sin dejar el aula:
+				números, herramientas, errores y lo que haría distinto.
+			</p>
+		</header>
+
+		{
+			posts.length === 0 && (
+				<section class="blog-section">
+					<div class="blog-container">
+						<div class="blog-empty">
+							<p class="blog-empty__title">Primera edición: noviembre de 2026</p>
+							<p>
+								El diario arranca de cero con esta nueva etapa. Mientras tanto, puedes
+								seguir el <a href="/rss.xml">RSS</a> o leer <a href="https://docentemente.com" target="_blank" rel="noopener">docentemente</a> cada domingo.
+							</p>
+						</div>
+					</div>
+				</section>
+			)
+		}
+
+		{
+			featured.length > 0 && (
+				<section class="blog-section reveal" aria-labelledby="destacado">
+					<div class="blog-container">
+						<h2 id="destacado" class="blog-section__title">Últimas ediciones</h2>
+						<PostList posts={featured} featured eagerFirst />
+					</div>
+				</section>
+			)
+		}
+
+		{
+			latest.length > 0 && (
+				<section class="blog-section reveal" aria-labelledby="ultimos">
+					<div class="blog-container">
+						<h2 id="ultimos" class="blog-section__title">Ediciones anteriores</h2>
+						<PostList posts={latest} />
+					</div>
+				</section>
+			)
+		}
 	</main>
 
 	<style>
-		.blog-list {
-			width: 960px;
-			max-width: 100%;
+		.blog-header {
+			padding: 56px 16px 24px;
+			text-align: center;
+		}
+		.blog-header__eyebrow {
+			margin: 0 0 12px;
+			font-family: var(--font-heading);
+			font-size: 0.85rem;
+			font-weight: 600;
+			color: var(--accent);
+		}
+		.blog-empty {
+			max-width: 640px;
 			margin: 0 auto;
+			padding: 28px;
+			border: 1px dashed var(--rule);
+			border-radius: 8px;
+			text-align: center;
+			color: var(--ink-muted);
+		}
+		.blog-empty p {
+			max-width: none;
+			margin: 0;
+		}
+		.blog-empty .blog-empty__title {
+			margin-bottom: 0.5rem;
+			font-family: var(--font-heading);
+			font-size: 1.2rem;
+			font-weight: 800;
+			color: var(--ink);
+		}
+		.blog-header__title {
+			max-width: 18ch;
+			margin: 0 auto 16px;
+			font-size: clamp(2.25rem, 7vw, 4rem);
+			line-height: 1.05;
+		}
+		.blog-header__subtitle {
+			max-width: 46ch;
+			margin: 0 auto;
+			font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+			line-height: 1.4;
+			color: var(--ink-muted);
+			text-wrap: balance;
+		}
+		.blog-section {
+			border-top: none;
+			padding: 40px 0;
+		}
+		.blog-section:last-of-type {
+			padding-bottom: 80px;
+		}
+		.blog-container {
+			max-width: 1248px;
+			margin: 0 auto;
+			padding: 0 16px;
+		}
+		.blog-section__title {
+			margin: 0 0 32px;
+			font-family: var(--font-heading);
+			font-weight: 800;
+			font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+			line-height: 1.2;
+			letter-spacing: -0.02em;
+		}
+		@media (min-width: 576px) {
+			.blog-header {
+				padding: 104px 16px 40px;
+			}
+			.blog-section {
+				padding: 64px 0;
+			}
+			.blog-section__title {
+				margin-bottom: 40px;
+			}
 		}
 	</style>
 </Layout>

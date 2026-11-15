@@ -1,83 +1,56 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import FormattedDate from './FormattedDate.astro';
+import PostCard from './PostCard.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 2);
 ---
 
-<ul class="latest-posts">
-	{
-		posts.map((post) => (
-			<li>
-				<a href={`/blog/${post.id}/`}>
-					{post.data.heroImage && (
-						<Image width={480} height={320} src={post.data.heroImage} alt={post.data.title} />
-					)}
-					<h3 class="title">{post.data.title}</h3>
-					<p class="date">
-						<FormattedDate date={post.data.pubDate} />
-					</p>
-				</a>
-			</li>
-		))
-	}
-</ul>
+{
+	posts.length > 0 ? (
+		<>
+			<ul class="latest-posts">
+				{posts.map((post) => (
+					<li>
+						<PostCard post={post} compact />
+					</li>
+				))}
+			</ul>
+			<p class="see-all">
+				<a href="/blog/">Ver todas las ediciones →</a>
+			</p>
+		</>
+	) : (
+		<p class="latest-empty">
+			<strong>Primera edición: noviembre de 2026.</strong> Se publicará aquí y en el <a href="/rss.xml">RSS</a>.
+		</p>
+	)
+}
 
 <style>
 	.latest-posts {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem 1.25rem;
+		grid-template-columns: 1fr;
+		gap: 16px;
 		list-style: none;
-		margin: 0;
+		margin: 1.6rem 0 0;
 		padding: 0;
 	}
-	.latest-posts li a {
-		display: block;
-		text-decoration: none;
-	}
-	.latest-posts img {
-		display: block;
-		width: 100%;
-		aspect-ratio: 3 / 2;
-		object-fit: cover;
-		border-radius: 4px;
-		margin-bottom: 0.6rem;
-	}
-	.latest-posts .title {
-		margin: 0;
-		font-family: var(--font-heading);
-		font-weight: 700;
-		font-size: 1rem;
-		letter-spacing: -0.01em;
-		line-height: 1.3;
-		color: var(--ink);
-		transition: color 0.15s ease;
-	}
-	.latest-posts .date {
-		max-width: none;
-		margin: 0.3rem 0 0;
-		font-family: var(--font-heading);
-		font-size: 0.75rem;
+	.latest-empty {
+		margin-top: 1.6rem;
+		padding: 1.1rem 1.25rem;
+		border: 1px dashed var(--rule);
+		border-radius: 8px;
 		color: var(--ink-muted);
 	}
-	.latest-posts li a:hover .title,
-	.latest-posts li a:hover .date {
-		color: var(--accent);
+	.latest-empty strong {
+		color: var(--ink);
 	}
-	.latest-posts li a:hover img {
-		opacity: 0.85;
-	}
-
-	@media (max-width: 480px) {
+	@media (min-width: 576px) {
 		.latest-posts {
-			gap: 1rem 0.75rem;
-		}
-		.latest-posts .title {
-			font-size: 0.9rem;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
 		}
 	}
 </style>

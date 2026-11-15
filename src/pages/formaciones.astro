@@ -1,0 +1,268 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { PROJECTS } from '../consts';
+import { formacionMailto } from '../lib/mailto';
+
+const title = 'Formaciones y ponencias para centros educativos — Ginés López';
+const description =
+	'Ponencias, formación en centro y asesoría sobre IA en el aula y emprender siendo docente, de la mano de un profesor de FP que lo aplica en sus propios proyectos.';
+
+const topics = [
+	{
+		name: 'IA en el aula',
+		intro:
+			'Para claustros que quieren usar la IA generativa con criterio, no por moda.',
+		points: [
+			'Preparar clases y materiales con IA en menos tiempo.',
+			'Corregir y dar feedback con IA sin perder el criterio docente.',
+			'Diseñar evaluaciones y rúbricas con ayuda de la IA.',
+			'Límites, riesgos y uso responsable con el alumnado.',
+		],
+	},
+	{
+		name: 'Emprender siendo docente',
+		intro:
+			'Para docentes que quieren crear algo propio sin descuidar el aula.',
+		points: [
+			'Qué tipo de proyecto encaja con la docencia y cuál no.',
+			'Montar una newsletter o un producto educativo desde cero.',
+			'Construir marca personal como docente, sin postureo.',
+			'Organizar el tiempo para que el proyecto no se coma la clase.',
+		],
+	},
+];
+
+const formats = [
+	{
+		name: 'Ponencia',
+		desc: 'Una sesión de 1 a 2 horas para jornadas, congresos o claustros.',
+	},
+	{
+		name: 'Formación en centro',
+		desc: 'Varias sesiones prácticas para un claustro o departamento, dentro del plan de formación del centro.',
+	},
+	{
+		name: 'Asesoría',
+		desc: 'Acompañamiento a un equipo directivo o departamento para llevarlo a la práctica.',
+	},
+];
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Service',
+	name: 'Formaciones y ponencias para centros educativos',
+	serviceType: 'Formación del profesorado',
+	description,
+	areaServed: { '@type': 'Country', name: 'España' },
+	provider: { '@type': 'Person', name: 'Ginés López', url: 'https://gines.me/' },
+	url: 'https://gines.me/formaciones/',
+};
+const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+---
+
+<Layout title={title} description={description}>
+	<script slot="head" type="application/ld+json" set:html={jsonLdString} />
+
+	<main class="page-main">
+		<section class="reveal intro">
+			<div class="wrap">
+				<p class="eyebrow">Ponencias · Formación en centro · Asesoría</p>
+				<h1 class="section-title">Formaciones para centros educativos</h1>
+				<p class="lead">
+					Llevo a tu claustro lo que aplico cada día en el aula y en mis propios
+					proyectos. Sin humo, con ejemplos reales y con algo que podáis usar el
+					lunes.
+				</p>
+				<div class="actions">
+					<a class="btn primary" href={formacionMailto}>Pedir información</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="reveal">
+			<div class="wrap">
+				<h2 class="section-label">Temas</h2>
+				{
+					topics.map((topic) => (
+						<article class="topic">
+							<h3>{topic.name}</h3>
+							<p class="topic__intro">{topic.intro}</p>
+							<ul>
+								{topic.points.map((point) => (
+									<li>{point}</li>
+								))}
+							</ul>
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="reveal">
+			<div class="wrap">
+				<h2 class="section-label">Formatos</h2>
+				<ul class="formats">
+					{
+						formats.map((format) => (
+							<li>
+								<h3>{format.name}</h3>
+								<p>{format.desc}</p>
+							</li>
+						))
+					}
+				</ul>
+				<p class="note">
+					Cada formación se adapta a vuestro claustro: nivel, etapa y lo que
+					necesitáis resolver.
+				</p>
+			</div>
+		</section>
+
+		<section class="reveal">
+			<div class="wrap">
+				<h2 class="section-label">Por qué conmigo</h2>
+				<ul class="reasons">
+					<li>
+						<h3>Doy clase cada día</h3>
+						<p>
+							Soy profesor de FP en Informática. Lo que cuento lo pruebo antes con
+							alumnos reales, no en un laboratorio.
+						</p>
+					</li>
+					<li>
+						<h3>Lo aplico en mis proyectos</h3>
+						<p>
+							Construyo <a href={PROJECTS.docentemente} target="_blank" rel="noopener">docentemente</a> y <a href={PROJECTS.codigofp} target="_blank" rel="noopener">CódigoFP</a> sin dejar
+							el aula, y cuento cada paso en <a href="/blog/">el diario</a>.
+						</p>
+					</li>
+					<li>
+						<h3>Vengo del oficio técnico</h3>
+						<p>
+							Antes de dar clase pasé más de cinco años como desarrollador web. La
+							tecnología no me la han contado.
+						</p>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section class="reveal">
+			<div class="wrap">
+				<h2 class="section-label">Cómo funciona</h2>
+				<ol class="steps">
+					<li>
+						<strong>Me escribes</strong> con el centro, el tema que os interesa y
+						unas fechas aproximadas.
+					</li>
+					<li>
+						<strong>Lo hablamos</strong> y adapto el contenido a vuestro claustro.
+					</li>
+					<li>
+						<strong>Hacemos la sesión</strong>: práctica, con ejemplos reales y
+						tiempo para vuestras preguntas.
+					</li>
+				</ol>
+			</div>
+		</section>
+
+		<section class="reveal cta">
+			<div class="wrap">
+				<h2 class="section-title">¿Lo hablamos?</h2>
+				<p>
+					El correo ya va con una plantilla: rellena lo que sepas y te respondo
+					personalmente.
+				</p>
+				<div class="actions">
+					<a class="btn primary" href={formacionMailto}>Pedir información</a>
+					<a class="btn" href="/sobre-mi/">Conocerme mejor</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<style>
+		.intro {
+			border-top: none;
+		}
+		.lead {
+			font-size: 1.14rem;
+			color: var(--ink-muted);
+		}
+		.actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
+			margin-top: 1.8rem;
+		}
+		.topic + .topic {
+			margin-top: 2.2rem;
+		}
+		.topic h3,
+		.formats h3,
+		.reasons h3 {
+			margin: 0 0 0.3rem;
+			font-family: var(--font-heading);
+			font-size: 1.2rem;
+			font-weight: 700;
+			letter-spacing: -0.01em;
+		}
+		.topic__intro {
+			margin: 0;
+			color: var(--ink-muted);
+		}
+		.topic ul {
+			margin: 0.8rem 0 0;
+			padding-left: 1.25rem;
+		}
+		.topic li {
+			margin: 0.35rem 0;
+		}
+		.topic li::marker {
+			color: var(--accent);
+		}
+		.formats,
+		.reasons {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.formats li,
+		.reasons li {
+			padding: 1.1rem 0;
+			border-top: 1px solid var(--rule);
+		}
+		.formats li:first-child,
+		.reasons li:first-child {
+			border-top: none;
+			padding-top: 0;
+		}
+		.formats p,
+		.reasons p {
+			margin: 0;
+			color: var(--ink-muted);
+		}
+		.note {
+			margin-top: 1.2rem;
+			font-family: var(--font-heading);
+			font-size: 0.88rem;
+			color: var(--ink-muted);
+		}
+		.steps {
+			margin: 0;
+			padding-left: 1.25rem;
+		}
+		.steps li {
+			margin: 0.6rem 0;
+			padding-left: 0.3rem;
+		}
+		.steps li::marker {
+			font-family: var(--font-heading);
+			font-weight: 800;
+			color: var(--accent);
+		}
+		.cta {
+			text-align: left;
+		}
+	</style>
+</Layout>

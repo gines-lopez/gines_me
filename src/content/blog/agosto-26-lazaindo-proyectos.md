@@ -3,7 +3,7 @@ title: 'Agosto’26 - LazAIndo proyectos'
 description: 'Balance de agosto: cero WordPress, dos proyectos lanzados (gines.me y docentemente.com), uno en camino para septiembre y cómo he usado la IA en cada uno.'
 pubDate: 2026-08-30
 heroImage: '../../assets/agosto-26-lanzaindo-proyectos.png'
-draft: false
+draft: true
 ---
 
 Agosto ha sido un mes curioso, el de quitarme el miedo a la IA[^1]. Acabé julio con tres proyectos en mente -te voy a descubrir el que se lanza en septiembre- y con dos WordPress instalados. Agosto acaba con 0 WordPress:

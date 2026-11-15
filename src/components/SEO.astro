@@ -3,7 +3,7 @@
 // Rendered inside <head>, alongside <BaseHead /> which owns the non-SEO boilerplate
 // (charset, favicon, sitemap, rss, fonts).
 import type { ImageMetadata } from 'astro';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
+import FallbackImage from '../assets/og-default.png';
 import { SITE_TITLE } from '../consts';
 
 interface Props {
@@ -31,7 +31,7 @@ const jsonLd = article
 	: {
 			'@context': 'https://schema.org',
 			'@type': 'WebSite',
-			name: title,
+			name: SITE_TITLE,
 			description,
 			url: canonicalURL.toString(),
 		};
@@ -54,6 +54,7 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageURL} />
+<meta property="og:image:alt" content={title} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />

@@ -1,12 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { CONTACT_EMAIL } from '../consts';
+import { formacionMailto, mailto } from '../lib/mailto';
 
 const title = 'Contacto — Ginés López';
 const description =
-	'Escríbeme para consultas sobre docencia, desarrollo web o IA aplicada a la educación.';
-
-const email = 'docentegineslopez@gmail.com';
-const asunto = encodeURIComponent('Contacto desde gines.me');
+	'Escríbeme para pedir una ponencia, formación o asesoría sobre IA en el aula o emprender siendo docente, o para hablar de docentemente y CódigoFP.';
 ---
 
 <Layout title={title} description={description}>
@@ -15,22 +14,23 @@ const asunto = encodeURIComponent('Contacto desde gines.me');
 			<div class="wrap">
 				<h1 class="section-title">Hablemos</h1>
 				<p>
-					¿Tienes una consulta sobre docencia, desarrollo web o IA aplicada a
-					la educación? ¿O simplemente quieres contarme algo? Escríbeme y te
-					respondo en cuanto pueda.
+					¿Quieres una ponencia, una formación o asesoría para tu centro? Echa un
+					vistazo a las <a href="/formaciones/">formaciones</a> o escríbeme
+					directamente: el correo ya va con una plantilla para que no se te olvide
+					nada.
+				</p>
+				<p>
+					Si es otra cosa —una colaboración, una duda sobre mis proyectos o
+					simplemente quieres contarme algo— también te leo.
 				</p>
 
 				<div class="contact-actions">
-					<a class="btn primary" href={`mailto:${email}?subject=${asunto}`}>
-						Escribir a {email}
-					</a>
-					<a class="btn" href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">
-						LinkedIn
-					</a>
-					<a class="btn" href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">
-						Instagram
-					</a>
+					<a class="btn primary" href={formacionMailto}>Pedir una formación</a>
+					<a class="btn" href={mailto('Contacto desde gines.me')}>Escribir a {CONTACT_EMAIL}</a>
 				</div>
+				<p class="contact-social">
+					También estoy en <a href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a> y <a href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>.
+				</p>
 			</div>
 		</section>
 	</main>
@@ -41,6 +41,15 @@ const asunto = encodeURIComponent('Contacto desde gines.me');
 			display: flex;
 			flex-wrap: wrap;
 			gap: 0.9rem;
+		}
+		.contact-actions .btn {
+			overflow-wrap: anywhere;
+		}
+		.contact-social {
+			margin-top: 1.6rem;
+			font-family: var(--font-heading);
+			font-size: 0.9rem;
+			color: var(--ink-muted);
 		}
 	</style>
 </Layout>

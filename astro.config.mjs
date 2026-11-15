@@ -1,19 +1,39 @@
 // @ts-check
 
+import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { generateCovers } from './scripts/blueprint/generate.mjs';
+
+/**
+ * Genera las portadas blueprint del diario al arrancar `astro dev` y `astro build`.
+ * @returns {import('astro').AstroIntegration}
+ */
+function blueprintCovers() {
+	return {
+		name: 'blueprint-covers',
+		hooks: {
+			'astro:config:setup': async ({ logger }) => {
+				await generateCovers({ soft: true, logger });
+			},
+		},
+	};
+}
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://gines.me',
 	markdown: {
-		remarkRehype: {
-			footnoteLabel: 'Notas',
-			footnoteBackLabel: 'Volver al texto',
-		},
+		processor: unified({
+			remarkRehype: {
+				footnoteLabel: 'Notas',
+				footnoteBackLabel: 'Volver al texto',
+			},
+		}),
 	},
 	integrations: [
+		blueprintCovers(),
 		mdx(),
 		sitemap({
 			filter: (page) => !page.includes('/blog/tag/'),

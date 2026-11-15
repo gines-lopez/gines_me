@@ -40,23 +40,48 @@ const description = `Artículos etiquetados con «${label}» en el blog de ${SIT
 ---
 
 <Layout title={title} description={description} noindex>
-	<main class="page-main blog-list">
-		<section class="reveal">
-			<div class="wrap">
-				<h1 class="section-title">Etiqueta: {label}</h1>
+	<main class="page-main">
+		<header class="blog-header">
+			<p class="blog-header__eyebrow">Etiqueta</p>
+			<h1 class="blog-header__title">{label}</h1>
+		</header>
+		<section class="blog-section reveal">
+			<div class="blog-container">
+				<PostList posts={posts} headingLevel={2} />
 			</div>
-			<PostList posts={posts} />
 		</section>
 	</main>
 
 	<style>
-		.blog-list {
-			width: 960px;
-			max-width: 100%;
-			margin: 0 auto;
+		.blog-header {
+			padding: 56px 16px 24px;
+			text-align: center;
 		}
-		.blog-list h1 {
-			margin-bottom: 1.5rem;
+		.blog-header__eyebrow {
+			margin: 0 0 12px;
+			font-family: var(--font-heading);
+			font-size: 0.85rem;
+			font-weight: 600;
+			color: var(--accent);
+		}
+		.blog-header__title {
+			margin: 0 auto;
+			font-size: clamp(2.25rem, 7vw, 4rem);
+			line-height: 1.05;
+		}
+		.blog-section {
+			border-top: none;
+			padding: 40px 0 80px;
+		}
+		.blog-container {
+			max-width: 1248px;
+			margin: 0 auto;
+			padding: 0 16px;
+		}
+		@media (min-width: 576px) {
+			.blog-header {
+				padding: 104px 16px 40px;
+			}
 		}
 	</style>
 </Layout>

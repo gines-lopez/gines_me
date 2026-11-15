@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Página no encontrada — Ginés López';
+const description = 'La página que buscas no existe o se ha movido.';
+---
+
+<Layout title={title} description={description} noindex>
+	<main class="page-main">
+		<section class="not-found">
+			<div class="wrap">
+				<p class="eyebrow">Error 404</p>
+				<h1 class="section-title">Esta página no existe (o ya no)</h1>
+				<p>
+					Puede que la hayas encontrado en un enlace antiguo: el diario se reinició
+					en noviembre de 2026 con un enfoque nuevo.
+				</p>
+				<div class="actions">
+					<a class="btn primary" href="/">Ir al inicio</a>
+					<a class="btn" href="/blog/">Leer el diario</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<style>
+		.not-found {
+			border-top: none;
+			padding: 4rem 0;
+		}
+		.actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
+			margin-top: 1.8rem;
+		}
+	</style>
+</Layout>

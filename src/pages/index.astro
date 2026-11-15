@@ -1,10 +1,14 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import LatestPosts from '../components/LatestPosts.astro';
+import { PROJECTS } from '../consts';
+import { formacionMailto } from '../lib/mailto';
+import foto from '../assets/gines-lopez.png';
 
-const title = 'Ginés López — IA aplicada a la educación y al desarrollo';
+const title = 'Ginés López — Docente que emprende. Y lo cuenta todo.';
 const description =
-	'Ginés López: profesor de FP en Informática que aplica IA generativa en el aula y en sus proyectos, y comparte en el blog lo que de verdad funciona.';
+	'Ginés López, profesor de FP en Informática y solopreneur educativo: construye docentemente y CódigoFP sin dejar el aula y forma a claustros en IA en el aula y en emprender siendo docente.';
 ---
 
 <Layout title={title} description={description} footerVariant="full">
@@ -14,9 +18,8 @@ const description =
   "@type": "Person",
   "name": "Ginés López",
   "url": "https://gines.me/",
-  "email": "mailto:docentegineslopez@gmail.com",
   "jobTitle": "Profesor de Formación Profesional en Informática",
-  "description": "Formador especializado en IA aplicada a la educación, profesor funcionario de Formación Profesional en Informática (DAM) y desarrollador web con más de 10 años de experiencia.",
+  "description": "Profesor de FP en Informática y solopreneur educativo. Creador de docentemente y CódigoFP. Ofrece ponencias, formación en centro y asesoría sobre IA en el aula y emprender siendo docente.",
   "worksFor": {
     "@type": "GovernmentOrganization",
     "name": "Generalitat Valenciana - Consellería de Educación"
@@ -28,18 +31,13 @@ const description =
   ],
   "knowsLanguage": ["es", "en", "fr", "ca"],
   "knowsAbout": [
+    "Emprendimiento educativo",
     "Inteligencia Artificial aplicada a la educación",
-    "Inteligencia Artificial aplicada al desarrollo",
     "Formación Profesional",
-    "Oposiciones docentes",
-    "Desarrollo de Aplicaciones Multiplataforma",
-    "Desarrollo de Aplicaciones Web",
-    "Sistemas Microinformáticos y Redes",
-    "PrestaShop",
-    "WordPress",
-    "Kotlin",
-    "JavaScript",
-    "PHP"
+    "Oposiciones docentes de Formación Profesional",
+    "Programación didáctica",
+    "Newsletters y productos digitales educativos",
+    "Desarrollo web"
   ],
   "address": {
     "@type": "PostalAddress",
@@ -49,20 +47,31 @@ const description =
 	</script>
 
 	<div class="hero-screen">
-		<div class="hero">
-			<div class="wrap">
-				<p class="eyebrow">IA aplicada a la educación · Formación Profesional · Oposiciones</p>
-				<h1>IA aplicada a la educación, desde el aula de FP.</h1>
-				<p class="subhead">
-					Uso IA generativa cada día para programar, corregir código y
-					preparar clases, y llevo lo que aprendo a las aulas de DAM, DAW y
-					SMR.
-				</p>
-				<p class="hero-note">Funcionario de Carrera en la Generalitat Valenciana desde 2025.</p>
-				<div class="hero-actions">
-					<a class="btn primary" href="/contacto/">Escribir un correo</a>
-					<a class="btn" href="https://gines-lopez.github.io" target="_blank" rel="noopener">Mis apuntes</a>
-					<a class="btn" href="https://docentemente.com" target="_blank" rel="noopener">Docentemente</a>
+		<div class="hero home-hero">
+			<div class="home-hero__inner">
+				<div class="home-hero__text">
+					<p class="eyebrow">Profesor de FP · Solopreneur educativo</p>
+					<h1 class="home-hero__title">
+						<span>Docente que emprende.</span> <span>Y lo cuenta todo.</span>
+					</h1>
+					<p class="subhead">
+						Soy Ginés López, profesor de FP en Informática. Construyo <strong>docentemente</strong> y <strong>CódigoFP</strong> en público, y
+						formo a claustros en IA en el aula y en emprender siendo docente.
+					</p>
+					<div class="hero-actions">
+						<a class="btn primary" href="/formaciones/">Llévame a tu centro</a>
+						<a class="btn" href="/blog/">Leer el diario</a>
+					</div>
+				</div>
+				<div class="home-hero__photo">
+					<Image
+						src={foto}
+						alt="Ginés López señalando a cámara"
+						widths={[320, 480, 640, 860]}
+						sizes="(min-width: 900px) 430px, 300px"
+						loading="eager"
+						fetchpriority="high"
+					/>
 				</div>
 			</div>
 		</div>
@@ -71,44 +80,270 @@ const description =
 	<hr class="rule" />
 
 	<main>
+		<section id="proyectos" class="reveal">
+			<div class="wrap">
+				<h2 class="section-title">Lo que estoy construyendo</h2>
+				<p>
+					No te hablo de emprender desde la teoría. Estos son mis dos proyectos,
+					y cada mes cuento en el diario cómo van: lo que funciona, lo que no y
+					por qué.
+				</p>
+				<ul class="projects">
+					<li>
+						<a class="project" href={PROJECTS.docentemente} target="_blank" rel="noopener">
+							<span class="project__kind">Newsletter gratuita</span>
+							<span class="project__name">docentemente</span>
+							<span class="project__desc">
+								Una carta cada domingo para docentes con recursos, opiniones y
+								criterio.
+							</span>
+							<span class="project__link">docentemente.com ↗</span>
+						</a>
+					</li>
+					<li>
+						<a class="project" href={PROJECTS.codigofp} target="_blank" rel="noopener">
+							<span class="project__kind">Newsletter + producto</span>
+							<span class="project__name">CódigoFP</span>
+							<span class="project__desc">
+								Para opositores a FP que tienen que hacer su programación
+								didáctica, con newsletter y producto propio.
+							</span>
+							<span class="project__link">codigofp.com ↗</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="formaciones" class="reveal">
+			<div class="wrap">
+				<h2 class="section-title">Formaciones para centros</h2>
+				<p>
+					Lo que aplico en el aula y en mis proyectos, lo llevo a tu claustro.
+					Con ejemplos reales y con algo que podáis usar el lunes.
+				</p>
+				<ul class="topics">
+					<li>
+						<h3>IA en el aula</h3>
+						<p>
+							Preparar clases, corregir y evaluar con IA generativa sin perder el
+							criterio docente.
+						</p>
+					</li>
+					<li>
+						<h3>Emprender siendo docente</h3>
+						<p>
+							Montar una newsletter, un producto o una marca personal compatible
+							con dar clase, contado desde dentro.
+						</p>
+					</li>
+				</ul>
+				<p class="formats">Ponencias · Formación en centro · Asesoría</p>
+				<div class="section-actions">
+					<a class="btn primary" href="/formaciones/">Ver formaciones</a>
+					<a class="btn" href={formacionMailto}>Pedir información</a>
+				</div>
+			</div>
+		</section>
+
 		<section id="historia" class="reveal">
 			<div class="wrap">
 				<h2 class="section-title">¿Quién es Ginés López?</h2>
 				<p>
-					Soy Ginés López, formador especializado en <strong>IA aplicada a
-					la educación</strong> y <strong>profesor de Formación Profesional
-					en Informática</strong>. Llevo la inteligencia artificial
-					generativa a las aulas de DAM, DAW y SMR: la uso a diario para
-					preparar clases, corregir código y diseñar evaluaciones, y
-					comparto con alumnos y docentes lo que de verdad funciona, sin
-					humo.
+					Durante <strong>más de cinco años</strong> programé tiendas online en
+					una agencia de eCommerce. En 2022 cambié el cliente por el aula y hoy
+					soy <strong>profesor de FP en Informática</strong>, funcionario de
+					carrera en la Generalitat Valenciana.
 				</p>
 				<p>
-					Antes de dar clase fui <strong>más de cinco años desarrollador
-					web</strong>, especializado en PrestaShop y WordPress. Ese oficio de
-					escribir código para clientes reales es el que traslado hoy al
-					aula y a cualquier proyecto en el que colaboro.
+					En paralelo construyo mis propios proyectos educativos. Uso la IA como
+					copiloto para sacarlos adelante con el poco tiempo que deja una jornada
+					lectiva, y cuento todo lo que pasa por el camino.
 				</p>
-				<p>
-					Hoy soy <strong>funcionario de carrera</strong> de la Generalitat
-					Valenciana tras aprobar la <strong>oposición de Informática</strong>.
-					Ese mismo oficio y esa misma constancia son los que aplico en cada
-					proyecto: quiero que mis alumnos —y quien trabaje conmigo— salgan
-					sabiendo trabajar con IA, no compitiendo contra ella.
-				</p>
+				<p class="see-all"><a href="/sobre-mi/">Leer la historia completa →</a></p>
 			</div>
 		</section>
 
 		<section id="ultimo" class="reveal">
 			<div class="wrap">
-				<h2 class="section-title">Lo último que he hecho</h2>
+				<h2 class="section-title">El diario</h2>
 				<p>
-					Un diario de lo que aprendo llevando la IA al aula y construyendo
-					dos proyectos propios: lo que funciona, lo que no, y por qué.
+					Cada mes, una edición: qué he construido, qué ha salido bien, qué no y
+					qué haría distinto. El building in public de un solopreneur educativo.
 				</p>
 				<LatestPosts />
-				<p class="see-all"><a href="/blog/">Ver todos los artículos →</a></p>
 			</div>
 		</section>
 	</main>
+
+	<style>
+		/* ---------- Hero con foto ---------- */
+		.home-hero {
+			padding-bottom: 0;
+		}
+		.home-hero__inner {
+			display: grid;
+			gap: 1.5rem;
+			width: 100%;
+			max-width: 1160px;
+			margin: 0 auto;
+			padding: 0 1.5rem;
+		}
+		.home-hero__title {
+			max-width: none;
+		}
+		.home-hero__title span {
+			display: inline-block;
+		}
+		.home-hero__photo {
+			display: flex;
+			justify-content: center;
+			align-items: flex-end;
+		}
+		.home-hero__photo img {
+			display: block;
+			width: min(300px, 80vw);
+			height: auto;
+		}
+		@media (min-width: 900px) {
+			.home-hero {
+				justify-content: flex-end;
+			}
+			.home-hero__inner {
+				grid-template-columns: 1.25fr 0.75fr;
+				align-items: end;
+				gap: 3rem;
+				text-align: left;
+			}
+			.home-hero__text {
+				align-self: center;
+				padding-bottom: 3rem;
+			}
+			.home-hero__text h1,
+			.home-hero__text .subhead {
+				margin-left: 0;
+			}
+			.home-hero__text .hero-actions {
+				justify-content: flex-start;
+			}
+			.home-hero__photo img {
+				width: 100%;
+				max-width: 420px;
+			}
+		}
+
+		/* El bloque #historia es oscuro siempre: el enlace va en blanco */
+		#historia .see-all a {
+			color: #fff;
+		}
+
+		/* ---------- Proyectos ---------- */
+		.projects {
+			display: grid;
+			gap: 16px;
+			list-style: none;
+			margin: 1.8rem 0 0;
+			padding: 0;
+		}
+		@media (min-width: 576px) {
+			.projects {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 20px;
+			}
+		}
+		.project {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			height: 100%;
+			padding: 22px;
+			border: 1px solid var(--rule);
+			border-radius: 8px;
+			color: var(--ink);
+			text-decoration: none;
+			transition:
+				box-shadow 0.2s cubic-bezier(0.25, 0.7, 0.25, 1),
+				scale 0.2s cubic-bezier(0.25, 0.7, 0.25, 1);
+		}
+		.project:hover {
+			scale: 1.01;
+			box-shadow:
+				0 6px 8px rgba(10, 15, 20, 0.04),
+				0 16px 20px rgba(10, 15, 20, 0.06),
+				0 40px 60px rgba(10, 15, 20, 0.08);
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.project:hover {
+				scale: none;
+			}
+		}
+		.project__kind {
+			font-family: var(--font-heading);
+			font-size: 0.8rem;
+			font-weight: 600;
+			color: var(--accent);
+		}
+		.project__name {
+			font-family: var(--font-heading);
+			font-size: 1.5rem;
+			font-weight: 800;
+			letter-spacing: -0.02em;
+			line-height: 1.2;
+		}
+		.project__desc {
+			font-size: 0.98rem;
+			line-height: 1.55;
+			color: var(--ink-muted);
+		}
+		.project__link {
+			margin-top: auto;
+			padding-top: 0.5rem;
+			font-family: var(--font-heading);
+			font-size: 0.88rem;
+			font-weight: 600;
+		}
+		.project:hover .project__name,
+		.project:hover .project__link {
+			color: var(--accent);
+		}
+
+		/* ---------- Formaciones ---------- */
+		.topics {
+			display: grid;
+			gap: 0;
+			list-style: none;
+			margin: 1.8rem 0 0;
+			padding: 0;
+		}
+		.topics li {
+			padding: 1.1rem 0;
+			border-top: 1px solid var(--rule);
+		}
+		.topics h3 {
+			margin: 0 0 0.3rem;
+			font-family: var(--font-heading);
+			font-size: 1.15rem;
+			font-weight: 700;
+		}
+		.topics p {
+			margin: 0;
+			color: var(--ink-muted);
+		}
+		.formats {
+			margin: 0.6rem 0 0;
+			padding-top: 1.1rem;
+			border-top: 1px solid var(--rule);
+			font-family: var(--font-heading);
+			font-size: 0.85rem;
+			font-weight: 600;
+			color: var(--ink-muted);
+		}
+		.section-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
+			margin-top: 1.8rem;
+		}
+	</style>
 </Layout>

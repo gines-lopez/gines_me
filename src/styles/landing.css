@@ -192,6 +192,29 @@ a:focus-visible, button:focus-visible {
   transition: border-color 0.15s ease, color 0.15s ease;
 }
 .topbar-link:hover { color: var(--accent); border-color: var(--accent); }
+.topbar-nav { display: flex; align-items: center; gap: 1.75rem; }
+@media (max-width: 420px) {
+  .topbar-nav { gap: 1.1rem; }
+  .topbar-link { font-size: 0.85rem; }
+}
+
+/* Área táctil mínima (~44px) sin alterar el aspecto de los enlaces de texto */
+.mark,
+.topbar-link,
+.see-all a,
+.footer-links a,
+.footer-social a {
+  position: relative;
+}
+.mark::after,
+.topbar-link::after,
+.see-all a::after,
+.footer-links a::after,
+.footer-social a::after {
+  content: "";
+  position: absolute;
+  inset: -12px -6px;
+}
 
 /* ---------- Hero ---------- */
 .hero {

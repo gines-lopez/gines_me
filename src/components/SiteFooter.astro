@@ -1,4 +1,7 @@
 ---
+import { PROJECTS } from '../consts';
+import { formacionMailto } from '../lib/mailto';
+
 interface Props {
 	variant?: 'full' | 'simple';
 }
@@ -10,20 +13,18 @@ const { variant = 'simple' } = Astro.props;
 	variant === 'full' ? (
 		<footer>
 			<div class="wrap">
-				<h2>¿Hablamos?</h2>
+				<h2>¿Hablamos de tu centro?</h2>
 				<p class="lede">
-					Escríbeme si quieres charlar de docencia, desarrollo web o alguna colaboración, echa un
-					vistazo a mis apuntes o pásate por mis proyectos en Docentemente.
+					Si buscas una ponencia, una formación o asesoría sobre IA en el aula o sobre
+					emprender siendo docente, escríbeme y lo vemos.
 				</p>
 				<div class="hero-actions">
-					<a class="btn primary" href="/contacto/">
-						Escribir un correo
+					<a class="btn primary" href={formacionMailto}>Pedir una formación</a>
+					<a class="btn" href={PROJECTS.docentemente} target="_blank" rel="noopener">
+						docentemente
 					</a>
-					<a class="btn" href="https://gines-lopez.github.io" target="_blank" rel="noopener">
-						Mis apuntes
-					</a>
-					<a class="btn" href="https://docentemente.com" target="_blank" rel="noopener">
-						Docentemente
+					<a class="btn" href={PROJECTS.codigofp} target="_blank" rel="noopener">
+						CódigoFP
 					</a>
 				</div>
 				<p class="fineprint">© <span id="year" /> Ginés López · gines.me</p>
@@ -35,6 +36,7 @@ const { variant = 'simple' } = Astro.props;
 				<p class="fineprint">© <span id="year" /> gines.me</p>
 				<nav class="footer-links">
 					<a href="/sobre-mi/">Sobre mí</a>
+					<a href="/formaciones/">Formaciones</a>
 					<a href="/uso-ia-en-el-proyecto/">Uso de la IA</a>
 					<a href="/contacto/">Contacto</a>
 				</nav>
