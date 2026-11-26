@@ -1,14 +1,29 @@
 ---
 import { SITE_TITLE } from '../consts';
+
+const path = Astro.url.pathname;
+const links = [
+	{ href: '/blog/', label: 'Diario' },
+	{ href: '/proyectos/', label: 'Proyectos' },
+	{ href: '/sobre-mi/', label: 'Sobre mí' },
+];
 ---
 
 <header class="topbar">
 	<div class="wrap topbar-inner">
 		<a class="mark" href="/">{SITE_TITLE}</a>
 		<nav class="topbar-nav" aria-label="Principal">
-			<a class="topbar-link" href="/blog/">Diario</a>
-			<a class="topbar-link" href="/formaciones/">Formaciones</a>
-			<a class="topbar-link" href="/contacto/">Contacto</a>
+			{
+				links.map((l) => (
+					<a
+						class="topbar-link"
+						href={l.href}
+						aria-current={path.startsWith(l.href) ? 'page' : undefined}
+					>
+						{l.label}
+					</a>
+				))
+			}
 		</nav>
 	</div>
 </header>

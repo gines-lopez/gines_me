@@ -49,7 +49,8 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 - **Blockquotes**: `landing.css` estiliza `blockquote`/`cite` globalmente (borde izquierdo en `--accent`, cursiva, `cite` en gris no cursiva). No hay reset propio en `BlogPost.astro`, así que el estilo aplica igual en posts del blog y en páginas sueltas — no hace falta repetirlo por página.
 - **Citas con fuente**: el texto de una cita no se enlaza directamente. El patrón es nota a pie de página: `<sup><a href="#fn-x" id="fnref-x">n</a></sup>` junto al texto citado, y al final del contenido un `<ol class="footnotes">` con `<li id="fn-x">` que lleva el enlace real y un `↩` de vuelta a `#fnref-x`. Ver `src/pages/uso-ia-en-el-proyecto.astro` como referencia de implementación (incluye el `<style>` scoped para `sup a` y `.footnotes`).
-- **Sección oscura deliberada**: la sección `#historia` ("¿Quién es Ginés López?") en `index.astro` tiene fondo negro y texto blanco a propósito (regla `#historia` en `landing.css`), distinta al resto del sitio que es claro. No es un bug de `prefers-color-scheme` ni hay que "corregirlo" — es un bloque de diseño fijo e independiente del tema.
+- **Diseño «cuaderno de bitácora»** (nov. 2026): papel cálido + tinta + azul plano (`--accent`), serif Newsreader (`--font-heading`/`--font-body`) e Inter solo para UI (`--font-ui`). Modo claro y oscuro por `prefers-color-scheme`; no hay secciones de color fijo. Foto recortada en `src/assets/gines-lopez.png`. Orden fijo de proyectos en todo el sitio: CódigoFP primero, docentemente después.
+- **Estructura**: Inicio · El diario (`/blog/`) · Proyectos (`/proyectos/`) · Sobre mí · Contacto (en el footer). No hay formaciones: `/formaciones/` redirige 301 a `/` en `public/.htaccess`. No reintroducir ofertas de formación, ponencias ni asesoría.
 
 ## Ediciones del diario y portadas blueprint
 

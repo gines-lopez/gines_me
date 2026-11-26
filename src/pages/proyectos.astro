@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { PROJECTS } from '../consts';
+
+const title = 'Proyectos: CódigoFP y docentemente — Ginés López';
+const description =
+	'Los dos proyectos que Ginés López construye en solitario y en público: CódigoFP, para opositores a FP, y docentemente, la carta gratuita de cada domingo para docentes.';
+
+const projects = [
+	{
+		name: 'CódigoFP',
+		url: PROJECTS.codigofp,
+		host: 'codigofp.com',
+		what: 'Newsletter y producto para opositores a FP que tienen que hacer su programación didáctica.',
+		why: 'Aprobé la oposición después de quedarme a 13 centésimas. CódigoFP es lo que me habría ahorrado tiempo en la parte que más cuesta: la programación didáctica.',
+	},
+	{
+		name: 'docentemente',
+		url: PROJECTS.docentemente,
+		host: 'docentemente.com',
+		what: 'Una carta gratuita cada domingo para docentes, con recursos, opiniones y criterio.',
+		why: 'Nació de escribir lo que me habría gustado leer al empezar a dar clase: poco ruido, algo que se pueda usar y una opinión con la que estar de acuerdo o no.',
+	},
+];
+---
+
+<Layout title={title} description={description}>
+	<main class="page-main projects">
+		<header class="projects__head">
+			<h1 class="section-title">Proyectos</h1>
+			<p>
+				Dos proyectos propios, construidos en solitario con lo que deja una jornada lectiva.
+				Cada mes cuento cómo van en <a href="/blog/">El diario</a>.
+			</p>
+		</header>
+		<ul class="projects__list">
+			{
+				projects.map((p) => (
+					<li>
+						<h2>{p.name}</h2>
+						<p class="projects__what">{p.what}</p>
+						<p class="projects__why">{p.why}</p>
+						<a class="btn" href={p.url} target="_blank" rel="noopener">
+							Ir a {p.host} ↗
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</main>
+
+	<style>
+		.projects__head {
+			max-width: 1160px;
+			margin: 0 auto;
+			padding: 4rem 1.5rem 2rem;
+		}
+		.projects__head h1 {
+			font-size: clamp(2.6rem, 8vw, 5rem);
+			font-weight: 500;
+			letter-spacing: -0.03em;
+			line-height: 1.02;
+			margin-bottom: 1rem;
+		}
+		.projects__head p {
+			max-width: 40ch;
+			font-size: 1.2rem;
+			color: var(--ink-muted);
+		}
+		.projects__list {
+			list-style: none;
+			margin: 0 auto;
+			padding: 0 1.5rem;
+			max-width: 1160px;
+			border-bottom: 1px solid var(--rule);
+		}
+		.projects__list li {
+			display: grid;
+			gap: 0.8rem 3rem;
+			padding: 2.6rem 0;
+			border-top: 1px solid var(--ink);
+		}
+		.projects__list h2 {
+			margin: 0;
+			font-family: var(--font-heading);
+			font-weight: 500;
+			font-size: clamp(2rem, 5vw, 3.2rem);
+			letter-spacing: -0.02em;
+			line-height: 1.05;
+		}
+		.projects__what {
+			margin: 0;
+			font-size: 1.2rem;
+			max-width: 40ch;
+		}
+		.projects__why {
+			margin: 0;
+			max-width: 46ch;
+			color: var(--ink-muted);
+		}
+		.projects__list .btn {
+			width: fit-content;
+			margin-top: 0.6rem;
+		}
+		@media (min-width: 900px) {
+			.projects__list li {
+				grid-template-columns: 1fr 1.3fr;
+			}
+			.projects__list h2 {
+				grid-row: span 3;
+			}
+			.projects__list .btn {
+				grid-column: 2;
+			}
+		}
+	</style>
+</Layout>

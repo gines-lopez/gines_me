@@ -1,11 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { CONTACT_EMAIL } from '../consts';
-import { formacionMailto, mailto } from '../lib/mailto';
+import { mailto } from '../lib/mailto';
 
 const title = 'Contacto — Ginés López';
 const description =
-	'Escríbeme para pedir una ponencia, formación o asesoría sobre IA en el aula o emprender siendo docente, o para hablar de docentemente y CódigoFP.';
+	'Escríbeme para hablar de CódigoFP, docentemente, una colaboración o simplemente para contarme qué te ha parecido El diario.';
 ---
 
 <Layout title={title} description={description}>
@@ -14,19 +14,13 @@ const description =
 			<div class="wrap">
 				<h1 class="section-title">Hablemos</h1>
 				<p>
-					¿Quieres una ponencia, una formación o asesoría para tu centro? Echa un
-					vistazo a las <a href="/formaciones/">formaciones</a> o escríbeme
-					directamente: el correo ya va con una plantilla para que no se te olvide
-					nada.
-				</p>
-				<p>
-					Si es otra cosa —una colaboración, una duda sobre mis proyectos o
-					simplemente quieres contarme algo— también te leo.
+					Escríbeme si quieres hablar de <a href="/proyectos/">CódigoFP o docentemente</a>,
+					proponerme una colaboración o contarme qué te ha parecido <a href="/blog/">El diario</a>.
+					Leo todo lo que llega.
 				</p>
 
 				<div class="contact-actions">
-					<a class="btn primary" href={formacionMailto}>Pedir una formación</a>
-					<a class="btn" href={mailto('Contacto desde gines.me')}>Escribir a {CONTACT_EMAIL}</a>
+					<a class="btn primary" href={mailto('Contacto desde gines.me')}>Escribir a {CONTACT_EMAIL}</a>
 				</div>
 				<p class="contact-social">
 					También estoy en <a href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a> y <a href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>.

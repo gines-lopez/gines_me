@@ -1,25 +1,33 @@
 ---
+import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import LatestPosts from '../components/LatestPosts.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { PROJECTS } from '../consts';
-import { formacionMailto } from '../lib/mailto';
+import { getCover } from '../lib/cover';
 import foto from '../assets/gines-lopez.png';
 
-const title = 'Ginés López — Docente que emprende. Y lo cuenta todo.';
+const title = 'Ginés López — Solopreneur educativo. El diario de un proyecto en público';
 const description =
-	'Ginés López, profesor de FP en Informática y solopreneur educativo: construye docentemente y CódigoFP sin dejar el aula y forma a claustros en IA en el aula y en emprender siendo docente.';
+	'Ginés López, profesor de FP en Informática, construye CódigoFP y docentemente en solitario y cuenta cada mes en El diario lo que funciona, lo que no y lo que haría distinto.';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const latest = posts[0];
+const cover = latest ? getCover(latest) : undefined;
+const issue = latest ? (latest.data.edition ?? posts.length) : undefined;
 ---
 
-<Layout title={title} description={description} footerVariant="full">
+<Layout title={title} description={description}>
 	<script slot="head" type="application/ld+json" is:inline>
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ginés López",
   "url": "https://gines.me/",
-  "jobTitle": "Profesor de Formación Profesional en Informática",
-  "description": "Profesor de FP en Informática y solopreneur educativo. Creador de docentemente y CódigoFP. Ofrece ponencias, formación en centro y asesoría sobre IA en el aula y emprender siendo docente.",
+  "jobTitle": "Profesor de Formación Profesional en Informática y solopreneur educativo",
+  "description": "Profesor de FP en Informática y solopreneur educativo. Construye docentemente y CódigoFP en solitario y cuenta el proceso cada mes en El diario.",
   "worksFor": {
     "@type": "GovernmentOrganization",
     "name": "Generalitat Valenciana - Consellería de Educación"
@@ -32,318 +40,414 @@ const description =
   "knowsLanguage": ["es", "en", "fr", "ca"],
   "knowsAbout": [
     "Emprendimiento educativo",
-    "Inteligencia Artificial aplicada a la educación",
-    "Formación Profesional",
-    "Oposiciones docentes de Formación Profesional",
-    "Programación didáctica",
+    "Building in public",
     "Newsletters y productos digitales educativos",
+    "Formación Profesional",
     "Desarrollo web"
   ],
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "ES"
-  }
+  "address": { "@type": "PostalAddress", "addressCountry": "ES" }
 }
 	</script>
 
-	<div class="hero-screen">
-		<div class="hero home-hero">
-			<div class="home-hero__inner">
-				<div class="home-hero__text">
-					<p class="eyebrow">Profesor de FP · Solopreneur educativo</p>
-					<h1 class="home-hero__title">
-						<span>Docente que emprende.</span> <span>Y lo cuenta todo.</span>
-					</h1>
-					<p class="subhead">
-						Soy Ginés López, profesor de FP en Informática. Construyo <strong>docentemente</strong> y <strong>CódigoFP</strong> en público, y
-						formo a claustros en IA en el aula y en emprender siendo docente.
-					</p>
-					<div class="hero-actions">
-						<a class="btn primary" href="/formaciones/">Llévame a tu centro</a>
-						<a class="btn" href="/blog/">Leer el diario</a>
-					</div>
-				</div>
-				<div class="home-hero__photo">
-					<Image
-						src={foto}
-						alt="Ginés López señalando a cámara"
-						widths={[320, 480, 640, 860]}
-						sizes="(min-width: 900px) 430px, 300px"
-						loading="eager"
-						fetchpriority="high"
-					/>
+	<main class="home">
+		<header class="masthead">
+			<div class="masthead__text">
+				<h1 class="masthead__title">Emprendo en solitario <span>y lo cuento todo.</span></h1>
+				<p class="masthead__lede">
+					Soy Ginés López, profesor de FP en Informática. Construyo
+					{' '}<strong>CódigoFP</strong> y <strong>docentemente</strong> con lo que me deja la
+					jornada lectiva, y cada mes lo anoto en El diario: lo que funciona, lo que no y lo
+					que haría distinto.
+				</p>
+				<div class="masthead__actions">
+					<a class="btn primary" href="/proyectos/">Ver lo que construyo</a>
+					<a class="btn" href={latest ? `/blog/${latest.id}/` : '/blog/'}>
+						{latest ? 'Leer la última edición' : 'Entrar al diario'}
+					</a>
 				</div>
 			</div>
-		</div>
-	</div>
+			<figure class="masthead__plate">
+				<div class="plate__sheet" aria-hidden="true"></div>
+				<Image
+					src={foto}
+					alt="Ginés López señalando a cámara"
+					widths={[360, 520, 720, 1000]}
+					sizes="(min-width: 900px) 470px, 80vw"
+					format="webp"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<figcaption>Fig. 1 · El autor, en obras</figcaption>
+			</figure>
+		</header>
 
-	<hr class="rule" />
-
-	<main>
-		<section id="proyectos" class="reveal">
-			<div class="wrap">
-				<h2 class="section-title">Lo que estoy construyendo</h2>
-				<p>
-					No te hablo de emprender desde la teoría. Estos son mis dos proyectos,
-					y cada mes cuento en el diario cómo van: lo que funciona, lo que no y
-					por qué.
-				</p>
-				<ul class="projects">
+		<section id="proyectos" class="block">
+			<div class="block__inner">
+				<h2 class="block__title">Lo que estoy construyendo</h2>
+				<ul class="ledger">
 					<li>
-						<a class="project" href={PROJECTS.docentemente} target="_blank" rel="noopener">
-							<span class="project__kind">Newsletter gratuita</span>
-							<span class="project__name">docentemente</span>
-							<span class="project__desc">
-								Una carta cada domingo para docentes con recursos, opiniones y
+						<a class="ledger__row" href={PROJECTS.codigofp} target="_blank" rel="noopener">
+							<span class="ledger__name">CódigoFP</span>
+							<span class="ledger__desc">
+								Newsletter y producto para opositores a FP que tienen que hacer su
+								programación didáctica.
+							</span>
+							<span class="ledger__go">codigofp.com ↗</span>
+						</a>
+					</li>
+					<li>
+						<a class="ledger__row" href={PROJECTS.docentemente} target="_blank" rel="noopener">
+							<span class="ledger__name">docentemente</span>
+							<span class="ledger__desc">
+								Una carta gratuita cada domingo para docentes, con recursos, opiniones y
 								criterio.
 							</span>
-							<span class="project__link">docentemente.com ↗</span>
-						</a>
-					</li>
-					<li>
-						<a class="project" href={PROJECTS.codigofp} target="_blank" rel="noopener">
-							<span class="project__kind">Newsletter + producto</span>
-							<span class="project__name">CódigoFP</span>
-							<span class="project__desc">
-								Para opositores a FP que tienen que hacer su programación
-								didáctica, con newsletter y producto propio.
-							</span>
-							<span class="project__link">codigofp.com ↗</span>
+							<span class="ledger__go">docentemente.com ↗</span>
 						</a>
 					</li>
 				</ul>
+				<p class="block__more"><a href="/proyectos/">Cómo nacieron y en qué punto están →</a></p>
 			</div>
 		</section>
 
-		<section id="formaciones" class="reveal">
-			<div class="wrap">
-				<h2 class="section-title">Formaciones para centros</h2>
-				<p>
-					Lo que aplico en el aula y en mis proyectos, lo llevo a tu claustro.
-					Con ejemplos reales y con algo que podáis usar el lunes.
+		<section id="diario" class="block block--tint">
+			<div class="block__inner">
+				<h2 class="block__title">El diario</h2>
+				<p class="block__lede">
+					Una edición al mes. Sin postureo: lo construido, lo que salió bien, lo que no y qué
+					haría distinto.
 				</p>
-				<ul class="topics">
-					<li>
-						<h3>IA en el aula</h3>
-						<p>
-							Preparar clases, corregir y evaluar con IA generativa sin perder el
-							criterio docente.
-						</p>
-					</li>
-					<li>
-						<h3>Emprender siendo docente</h3>
-						<p>
-							Montar una newsletter, un producto o una marca personal compatible
-							con dar clase, contado desde dentro.
-						</p>
-					</li>
-				</ul>
-				<p class="formats">Ponencias · Formación en centro · Asesoría</p>
-				<div class="section-actions">
-					<a class="btn primary" href="/formaciones/">Ver formaciones</a>
-					<a class="btn" href={formacionMailto}>Pedir información</a>
+				{
+					latest ? (
+						<a class="edition" href={`/blog/${latest.id}/`}>
+							<div class="edition__cover">
+								{cover && (
+									<Image
+										src={cover}
+										alt=""
+										widths={[480, 720, 1040]}
+										sizes="(min-width: 900px) 560px, 100vw"
+										loading="lazy"
+									/>
+								)}
+							</div>
+							<div class="edition__body">
+								<p class="edition__meta">
+									Edición n.º {issue} · <FormattedDate date={latest.data.pubDate} format="long" />
+								</p>
+								<h3 class="edition__title">{latest.data.title}</h3>
+								<p class="edition__desc">{latest.data.description}</p>
+								<span class="edition__go">Leer la edición →</span>
+							</div>
+						</a>
+					) : (
+						<div class="edition edition--empty">
+							<div class="edition__cover edition__cover--blank" aria-hidden="true">
+								<span>Plano n.º 1</span>
+							</div>
+							<div class="edition__body">
+								<p class="edition__meta">Edición n.º 1 · noviembre de 2026</p>
+								<h3 class="edition__title">La primera edición está en el tablero.</h3>
+								<p class="edition__desc">
+									Saldrá aquí y en el <a href="/rss.xml">RSS</a>. Mientras tanto, la carta de cada
+									domingo está en <a href={PROJECTS.docentemente} target="_blank" rel="noopener">docentemente</a>.
+								</p>
+							</div>
+						</div>
+					)
+				}
+				<p class="block__more"><a href="/blog/">Ver todas las ediciones →</a></p>
+			</div>
+		</section>
+
+		<section id="autor" class="block">
+			<div class="block__inner block__inner--split">
+				<h2 class="block__title">Quién escribe esto</h2>
+				<div class="prose">
+					<p>
+						Más de cinco años programando tiendas online en una agencia de eCommerce, y desde
+						2022 dando clase: hoy soy <strong>profesor de FP en Informática</strong>, funcionario
+						de carrera en la Generalitat Valenciana.
+					</p>
+					<p>
+						En paralelo monto mis propios proyectos y uso la IA como copiloto para llegar con el
+						poco tiempo que queda. Todo lo que pasa por el camino acaba en El diario.
+					</p>
+					<p class="block__more"><a href="/sobre-mi/">Leer la historia completa →</a></p>
 				</div>
-			</div>
-		</section>
-
-		<section id="historia" class="reveal">
-			<div class="wrap">
-				<h2 class="section-title">¿Quién es Ginés López?</h2>
-				<p>
-					Durante <strong>más de cinco años</strong> programé tiendas online en
-					una agencia de eCommerce. En 2022 cambié el cliente por el aula y hoy
-					soy <strong>profesor de FP en Informática</strong>, funcionario de
-					carrera en la Generalitat Valenciana.
-				</p>
-				<p>
-					En paralelo construyo mis propios proyectos educativos. Uso la IA como
-					copiloto para sacarlos adelante con el poco tiempo que deja una jornada
-					lectiva, y cuento todo lo que pasa por el camino.
-				</p>
-				<p class="see-all"><a href="/sobre-mi/">Leer la historia completa →</a></p>
-			</div>
-		</section>
-
-		<section id="ultimo" class="reveal">
-			<div class="wrap">
-				<h2 class="section-title">El diario</h2>
-				<p>
-					Cada mes, una edición: qué he construido, qué ha salido bien, qué no y
-					qué haría distinto. El building in public de un solopreneur educativo.
-				</p>
-				<LatestPosts />
 			</div>
 		</section>
 	</main>
 
 	<style>
-		/* ---------- Hero con foto ---------- */
-		.home-hero {
-			padding-bottom: 0;
+		.home {
+			padding-top: var(--topbar-h);
 		}
-		.home-hero__inner {
+
+		/* ---------- Hero ---------- */
+		.masthead {
+			text-align: left;
 			display: grid;
-			gap: 1.5rem;
-			width: 100%;
+			gap: 2rem;
+			max-width: 1160px;
+			margin: 0 auto;
+			padding: 2.5rem 1.5rem 0;
+		}
+		.masthead__title {
+			max-width: 12ch;
+			margin: 0 0 1.4rem;
+			font-size: clamp(2.8rem, 9vw, 5.2rem);
+			line-height: 1.02;
+			letter-spacing: -0.03em;
+			font-weight: 500;
+			text-wrap: balance;
+		}
+		.masthead__title span {
+			font-style: italic;
+			color: var(--accent);
+		}
+		.masthead__lede {
+			max-width: 36ch;
+			margin: 0 0 2rem;
+			font-size: 1.25rem;
+			line-height: 1.5;
+			color: var(--ink-muted);
+		}
+		.masthead__lede strong {
+			color: var(--ink);
+			font-weight: 600;
+		}
+		.masthead__actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
+		}
+		.masthead__plate {
+			position: relative;
+			align-self: end;
+			margin: 0;
+			display: flex;
+			justify-content: center;
+		}
+		.plate__sheet {
+			position: absolute;
+			inset: 8% 0 2.2rem;
+			border: 1px solid var(--accent);
+			background-color: var(--accent-soft);
+			background-image:
+				linear-gradient(color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 1px),
+				linear-gradient(90deg, color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 1px);
+			background-size: 32px 32px;
+		}
+		.masthead__plate img {
+			position: relative;
+			display: block;
+			width: min(380px, 78vw);
+			height: auto;
+			margin-bottom: 2.2rem;
+		}
+		.masthead__plate figcaption {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			font-family: var(--font-ui);
+			font-size: 0.72rem;
+			letter-spacing: 0.06em;
+			color: var(--ink-muted);
+			text-align: right;
+			padding: 0.6rem 0.2rem 0;
+			border-top: 1px solid var(--accent);
+		}
+		@media (min-width: 900px) {
+			.masthead {
+				grid-template-columns: 1.15fr 0.85fr;
+				gap: 4rem;
+				padding-top: 4rem;
+				min-height: calc(100dvh - var(--topbar-h));
+			}
+			.masthead__text {
+				align-self: center;
+				padding-bottom: 4rem;
+			}
+			.masthead__plate img {
+				width: 100%;
+				max-width: 460px;
+			}
+		}
+
+		/* ---------- Bloques ---------- */
+		.block {
+			border-top: 1px solid var(--ink);
+			padding: 4rem 0;
+		}
+		.block--tint {
+			background: var(--paper-2);
+		}
+		.block__inner {
 			max-width: 1160px;
 			margin: 0 auto;
 			padding: 0 1.5rem;
 		}
-		.home-hero__title {
-			max-width: none;
+		.block__title {
+			margin: 0 0 1.4rem;
+			font-size: clamp(1.9rem, 4.5vw, 3rem);
+			line-height: 1.08;
+			letter-spacing: -0.02em;
+			font-weight: 500;
 		}
-		.home-hero__title span {
-			display: inline-block;
+		.block__lede {
+			max-width: 44ch;
+			margin: 0 0 2.4rem;
+			color: var(--ink-muted);
 		}
-		.home-hero__photo {
-			display: flex;
-			justify-content: center;
-			align-items: flex-end;
+		.block__more {
+			margin: 2rem 0 0;
+			font-family: var(--font-ui);
+			font-weight: 600;
+			font-size: 0.94rem;
 		}
-		.home-hero__photo img {
-			display: block;
-			width: min(300px, 80vw);
-			height: auto;
+		.block__more a {
+			text-decoration: none;
+			position: relative;
+		}
+		.block__more a:hover {
+			text-decoration: underline;
 		}
 		@media (min-width: 900px) {
-			.home-hero {
-				justify-content: flex-end;
-			}
-			.home-hero__inner {
-				grid-template-columns: 1.25fr 0.75fr;
-				align-items: end;
-				gap: 3rem;
-				text-align: left;
-			}
-			.home-hero__text {
-				align-self: center;
-				padding-bottom: 3rem;
-			}
-			.home-hero__text h1,
-			.home-hero__text .subhead {
-				margin-left: 0;
-			}
-			.home-hero__text .hero-actions {
-				justify-content: flex-start;
-			}
-			.home-hero__photo img {
-				width: 100%;
-				max-width: 420px;
+			.block__inner--split {
+				display: grid;
+				grid-template-columns: 0.85fr 1.15fr;
+				gap: 4rem;
 			}
 		}
-
-		/* El bloque #historia es oscuro siempre: el enlace va en blanco */
-		#historia .see-all a {
-			color: #fff;
+		.prose p {
+			margin: 0 0 1rem;
+			max-width: 52ch;
 		}
 
 		/* ---------- Proyectos ---------- */
-		.projects {
-			display: grid;
-			gap: 16px;
+		.ledger {
 			list-style: none;
-			margin: 1.8rem 0 0;
+			margin: 2.4rem 0 0;
 			padding: 0;
+			border-bottom: 1px solid var(--rule);
 		}
-		@media (min-width: 576px) {
-			.projects {
-				grid-template-columns: repeat(2, 1fr);
-				gap: 20px;
-			}
-		}
-		.project {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-			height: 100%;
-			padding: 22px;
-			border: 1px solid var(--rule);
-			border-radius: 8px;
+		.ledger__row {
+			display: grid;
+			gap: 0.5rem 2rem;
+			padding: 1.8rem 0;
+			border-top: 1px solid var(--rule);
 			color: var(--ink);
 			text-decoration: none;
-			transition:
-				box-shadow 0.2s cubic-bezier(0.25, 0.7, 0.25, 1),
-				scale 0.2s cubic-bezier(0.25, 0.7, 0.25, 1);
+			transition: background-color 0.2s ease;
 		}
-		.project:hover {
-			scale: 1.01;
-			box-shadow:
-				0 6px 8px rgba(10, 15, 20, 0.04),
-				0 16px 20px rgba(10, 15, 20, 0.06),
-				0 40px 60px rgba(10, 15, 20, 0.08);
+		.ledger__name {
+			font-family: var(--font-heading);
+			font-size: clamp(2rem, 5vw, 3.2rem);
+			font-weight: 500;
+			letter-spacing: -0.02em;
+			line-height: 1.05;
 		}
-		@media (prefers-reduced-motion: reduce) {
-			.project:hover {
-				scale: none;
+		.ledger__desc {
+			max-width: 40ch;
+			color: var(--ink-muted);
+		}
+		.ledger__go {
+			font-family: var(--font-ui);
+			font-weight: 600;
+			font-size: 0.9rem;
+			color: var(--accent);
+		}
+		.ledger__row:hover .ledger__name {
+			color: var(--accent);
+		}
+		@media (min-width: 900px) {
+			.ledger__row {
+				grid-template-columns: 1fr 1fr 11rem;
+				align-items: baseline;
 			}
 		}
-		.project__kind {
-			font-family: var(--font-heading);
-			font-size: 0.8rem;
-			font-weight: 600;
-			color: var(--accent);
-		}
-		.project__name {
-			font-family: var(--font-heading);
-			font-size: 1.5rem;
-			font-weight: 800;
-			letter-spacing: -0.02em;
-			line-height: 1.2;
-		}
-		.project__desc {
-			font-size: 0.98rem;
-			line-height: 1.55;
-			color: var(--ink-muted);
-		}
-		.project__link {
-			margin-top: auto;
-			padding-top: 0.5rem;
-			font-family: var(--font-heading);
-			font-size: 0.88rem;
-			font-weight: 600;
-		}
-		.project:hover .project__name,
-		.project:hover .project__link {
-			color: var(--accent);
-		}
 
-		/* ---------- Formaciones ---------- */
-		.topics {
+		/* ---------- Edición ---------- */
+		.edition {
 			display: grid;
-			gap: 0;
-			list-style: none;
-			margin: 1.8rem 0 0;
-			padding: 0;
+			gap: 1.6rem;
+			color: var(--ink);
+			text-decoration: none;
 		}
-		.topics li {
-			padding: 1.1rem 0;
-			border-top: 1px solid var(--rule);
+		@media (min-width: 900px) {
+			.edition {
+				grid-template-columns: 1.1fr 0.9fr;
+				gap: 3rem;
+				align-items: center;
+			}
 		}
-		.topics h3 {
-			margin: 0 0 0.3rem;
-			font-family: var(--font-heading);
-			font-size: 1.15rem;
-			font-weight: 700;
+		.edition__cover {
+			border: 1px solid var(--ink);
+			aspect-ratio: 16 / 9;
+			overflow: hidden;
+			background: var(--accent-soft);
 		}
-		.topics p {
-			margin: 0;
+		.edition__cover img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		.edition__cover--blank {
+			display: grid;
+			place-items: end start;
+			padding: 1rem;
+			background-image:
+				linear-gradient(color-mix(in srgb, var(--accent) 25%, transparent) 1px, transparent 1px),
+				linear-gradient(90deg, color-mix(in srgb, var(--accent) 25%, transparent) 1px, transparent 1px);
+			background-size: 32px 32px;
+			font-family: var(--font-ui);
+			font-size: 0.75rem;
+			letter-spacing: 0.06em;
+			color: var(--accent);
+		}
+		.edition__meta {
+			margin: 0 0 0.6rem;
+			font-family: var(--font-ui);
+			font-size: 0.82rem;
 			color: var(--ink-muted);
 		}
-		.formats {
-			margin: 0.6rem 0 0;
-			padding-top: 1.1rem;
-			border-top: 1px solid var(--rule);
+		.edition__title {
+			margin: 0 0 0.8rem;
 			font-family: var(--font-heading);
-			font-size: 0.85rem;
+			font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+			font-weight: 500;
+			line-height: 1.12;
+			letter-spacing: -0.015em;
+			text-wrap: balance;
+		}
+		.edition__desc {
+			margin: 0 0 1.2rem;
+			max-width: 44ch;
+			color: var(--ink-muted);
+		}
+		.edition__go {
+			font-family: var(--font-ui);
 			font-weight: 600;
-			color: var(--ink-muted);
+			font-size: 0.94rem;
+			color: var(--accent);
 		}
-		.section-actions {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.9rem;
-			margin-top: 1.8rem;
+		a.edition:hover .edition__title {
+			color: var(--accent);
+		}
+		@media (max-width: 480px) {
+			.masthead {
+				padding-top: 1.8rem;
+			}
+			.masthead__actions .btn {
+				width: 100%;
+				text-align: center;
+			}
+			.block {
+				padding: 3rem 0;
+			}
 		}
 	</style>
 </Layout>

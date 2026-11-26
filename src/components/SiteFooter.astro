@@ -1,50 +1,34 @@
 ---
-import { PROJECTS } from '../consts';
-import { formacionMailto } from '../lib/mailto';
+import { PROJECTS, SITE_TAGLINE } from '../consts';
 
+// Se mantiene `variant` por compatibilidad con las páginas que aún lo pasan.
 interface Props {
 	variant?: 'full' | 'simple';
 }
-
-const { variant = 'simple' } = Astro.props;
 ---
 
-{
-	variant === 'full' ? (
-		<footer>
-			<div class="wrap">
-				<h2>¿Hablamos de tu centro?</h2>
-				<p class="lede">
-					Si buscas una ponencia, una formación o asesoría sobre IA en el aula o sobre
-					emprender siendo docente, escríbeme y lo vemos.
-				</p>
-				<div class="hero-actions">
-					<a class="btn primary" href={formacionMailto}>Pedir una formación</a>
-					<a class="btn" href={PROJECTS.docentemente} target="_blank" rel="noopener">
-						docentemente
-					</a>
-					<a class="btn" href={PROJECTS.codigofp} target="_blank" rel="noopener">
-						CódigoFP
-					</a>
-				</div>
-				<p class="fineprint">© <span id="year" /> Ginés López · gines.me</p>
-			</div>
-		</footer>
-	) : (
-		<footer class="footer-simple">
-			<div class="wrap footer-cols">
-				<p class="fineprint">© <span id="year" /> gines.me</p>
-				<nav class="footer-links">
-					<a href="/sobre-mi/">Sobre mí</a>
-					<a href="/formaciones/">Formaciones</a>
-					<a href="/uso-ia-en-el-proyecto/">Uso de la IA</a>
-					<a href="/contacto/">Contacto</a>
-				</nav>
-				<div class="footer-social">
-					<a href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a>
-					<a href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>
-				</div>
-			</div>
-		</footer>
-	)
-}
+<footer class="site-footer">
+	<div class="site-footer__inner">
+		<div class="site-footer__intro">
+			<p class="site-footer__mark">Ginés López</p>
+			<p class="site-footer__tag">{SITE_TAGLINE}</p>
+			<p class="fineprint">© <span id="year" /> gines.me</p>
+		</div>
+		<nav class="site-footer__col" aria-label="El sitio">
+			<h2>El sitio</h2>
+			<a href="/blog/">El diario</a>
+			<a href="/proyectos/">Proyectos</a>
+			<a href="/sobre-mi/">Sobre mí</a>
+			<a href="/contacto/">Contacto</a>
+			<a href="/uso-ia-en-el-proyecto/">Uso de la IA</a>
+		</nav>
+		<nav class="site-footer__col" aria-label="Fuera de aquí">
+			<h2>Fuera de aquí</h2>
+			<a href={PROJECTS.codigofp} target="_blank" rel="noopener">CódigoFP</a>
+			<a href={PROJECTS.docentemente} target="_blank" rel="noopener">docentemente</a>
+			<a href="https://www.linkedin.com/in/gineslopez/" target="_blank" rel="noopener">LinkedIn</a>
+			<a href="https://www.instagram.com/docentegineslopez" target="_blank" rel="noopener">Instagram</a>
+			<a href="/rss.xml">RSS del diario</a>
+		</nav>
+	</div>
+</footer>

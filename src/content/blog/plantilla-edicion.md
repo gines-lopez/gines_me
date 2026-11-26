@@ -32,9 +32,9 @@ tags: ['Building in public', 'Emprender siendo docente']
 #   - label: CódigoFP
 #     value: '00'
 #     note: ventas
-#   - label: Formaciones
+#   - label: Suscriptores
 #     value: '0'
-#     note: solicitudes
+#     note: lectores del diario
 ---
 
 <!-- Entradilla: 2-3 frases. ¿Qué ha marcado este mes? Engancha con lo más interesante, no con un resumen. -->
@@ -71,4 +71,4 @@ Escribe aquí la entradilla.
 
 ---
 
-¿Quieres que lleve esto a tu claustro? Mira las [formaciones para centros](/formaciones/).
+¿Quieres seguir el camino? Mira los [proyectos](/proyectos/) o suscríbete al [RSS](/rss.xml).
