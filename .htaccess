@@ -9,6 +9,9 @@ RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 # Ediciones archivadas al reiniciar el diario (nov. 2026)
 RewriteRule ^blog/agosto-26-lazaindo-proyectos/?$ /blog/ [L,R=301]
 
+# Formaciones eliminadas al centrar el sitio en el diario (nov. 2026)
+RewriteRule ^formaciones/?$ / [L,R=301]
+
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/css "access plus 1 year"

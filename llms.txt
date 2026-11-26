@@ -1,16 +1,16 @@
 # Ginés López
 
-> Profesor de Formación Profesional en Informática y solopreneur educativo: docente que emprende y lo cuenta todo. Construye sin dejar el aula dos proyectos propios —docentemente (carta gratuita cada domingo para docentes con recursos, opiniones y criterio) y CódigoFP (newsletter y producto para opositores a FP que tienen que hacer su programación didáctica)— y documenta el proceso cada mes en público. Ofrece ponencias, formación en centro y asesoría sobre IA en el aula y emprender siendo docente. Antes de dar clase trabajó más de cinco años como desarrollador web.
+> Profesor de Formación Profesional en Informática y solopreneur educativo: docente que emprende y lo cuenta todo. Construye sin dejar el aula dos proyectos propios —CódigoFP (newsletter y producto para opositores a FP que tienen que hacer su programación didáctica) y docentemente (carta gratuita cada domingo para docentes con recursos, opiniones y criterio)— y documenta el proceso cada mes en público. Antes de dar clase trabajó más de cinco años como desarrollador web.
 
 ## Páginas principales
 
-- [Inicio](https://gines.me/): Quién es Ginés López, sus proyectos y sus formaciones para centros.
-- [Formaciones](https://gines.me/formaciones/): Ponencias, formación en centro y asesoría sobre IA en el aula y emprender siendo docente. Para centros educativos e instituciones que quieran contratar una formación.
-- [El diario](https://gines.me/blog/): Ediciones mensuales de building in public: lo que construye con docentemente y CódigoFP, con números, herramientas y errores.
+- [Inicio](https://gines.me/): Quién es Ginés López, el último número de El diario y sus proyectos.
+- [Proyectos](https://gines.me/proyectos/): CódigoFP y docentemente, los dos proyectos que construye en solitario.
+- [El diario](https://gines.me/blog/): Ediciones mensuales de building in public: lo que construye con CódigoFP y docentemente, con números, herramientas y errores.
 - [Sobre mí](https://gines.me/sobre-mi/): Trayectoria completa, de desarrollador web a profesor de FP y solopreneur educativo.
-- [Contacto](https://gines.me/contacto/): Correo para pedir formaciones o proponer colaboraciones.
+- [Contacto](https://gines.me/contacto/): Correo para hablar de los proyectos o proponer colaboraciones.
 
 ## Proyectos
 
-- [docentemente](https://docentemente.com): Carta gratuita cada domingo para docentes, con recursos, opiniones y criterio.
 - [CódigoFP](https://codigofp.com): Newsletter y producto para opositores a Formación Profesional que tienen que hacer su programación didáctica.
+- [docentemente](https://docentemente.com): Carta gratuita cada domingo para docentes, con recursos, opiniones y criterio.
